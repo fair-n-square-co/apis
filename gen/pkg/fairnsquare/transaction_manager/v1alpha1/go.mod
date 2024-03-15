@@ -1,4 +1,4 @@
-module github.com/fair-n-square-co/pkg/transaction_manager/v1alpha1
+module github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transaction_manager/v1alpha1
 
 go 1.21.1
 
