@@ -27,7 +27,7 @@ message Friend {
   google.protobuf.Timestamp updated_at = 3;
   string first_name = 4;
   string last_name = 5;
-  string user_name = 6;
+  string user_name = 8;
   string profile_picture = 7;
 }
 
