@@ -1,33 +1,24 @@
-.PHONY: install/golang
-install/golang:
-	brew install asdf
-	asdf plugin add golang
-	asdf install golang latest
-
-.PHONY: install
-install/requirements:
-	brew install buf
-	brew install protoc-gen-go
-	brew install ffurrer2/tap/semver
-	go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
-
 .PHONY: lint
 lint:
 	buf lint
 
 .PHONY: build
-build: lint
+build:
 	buf build
 
 .PHONY: gen/dart
-gen/dart:
+gen/dart: lint
 	buf generate --template buf.gen.dart.yaml --include-imports --include-wkt
-	dart format gen/dart/lib/src/generated
+	dart format gen/dart/
 
 .PHONY: gen/go
-gen/go:
+gen/go: lint
 	buf generate --template buf.gen.go.yaml
 
 .PHONY: gen
 gen: build gen/dart gen/go
+
+.PHONY: dart/publish
+dart/publish: build gen/dart
+	dart pub publish -C gen/dart
 

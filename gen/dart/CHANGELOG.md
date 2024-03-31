@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Removed lib/src directory in favour of keeping code in lib directory
 
+## [0.0.1-alpha.3] - 2024-04-01
+
+### Changed
+
+- Nothing really
+
 <!-- template
 ## [Version] - Date
 
