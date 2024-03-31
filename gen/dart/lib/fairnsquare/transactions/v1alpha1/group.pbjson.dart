@@ -18,22 +18,8 @@ const Friend$json = {
   '1': 'Friend',
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    {
-      '1': 'created_at',
-      '3': 2,
-      '4': 1,
-      '5': 11,
-      '6': '.google.protobuf.Timestamp',
-      '10': 'createdAt'
-    },
-    {
-      '1': 'updated_at',
-      '3': 3,
-      '4': 1,
-      '5': 11,
-      '6': '.google.protobuf.Timestamp',
-      '10': 'updatedAt'
-    },
+    {'1': 'created_at', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    {'1': 'updated_at', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
     {'1': 'first_name', '3': 4, '4': 1, '5': 9, '10': 'firstName'},
     {'1': 'last_name', '3': 5, '4': 1, '5': 9, '10': 'lastName'},
     {'1': 'user_name', '3': 6, '4': 1, '5': 9, '10': 'userName'},
@@ -53,22 +39,8 @@ const Group$json = {
   '1': 'Group',
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    {
-      '1': 'created_at',
-      '3': 2,
-      '4': 1,
-      '5': 11,
-      '6': '.google.protobuf.Timestamp',
-      '10': 'createdAt'
-    },
-    {
-      '1': 'updated_at',
-      '3': 3,
-      '4': 1,
-      '5': 11,
-      '6': '.google.protobuf.Timestamp',
-      '10': 'updatedAt'
-    },
+    {'1': 'created_at', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    {'1': 'updated_at', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updatedAt'},
     {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
   ],
 };
@@ -88,21 +60,14 @@ const CreateGroupRequest$json = {
 };
 
 /// Descriptor for `CreateGroupRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createGroupRequestDescriptor = $convert
-    .base64Decode('ChJDcmVhdGVHcm91cFJlcXVlc3QSEgoEbmFtZRgBIAEoCVIEbmFtZQ==');
+final $typed_data.Uint8List createGroupRequestDescriptor = $convert.base64Decode(
+    'ChJDcmVhdGVHcm91cFJlcXVlc3QSEgoEbmFtZRgBIAEoCVIEbmFtZQ==');
 
 @$core.Deprecated('Use createGroupResponseDescriptor instead')
 const CreateGroupResponse$json = {
   '1': 'CreateGroupResponse',
   '2': [
-    {
-      '1': 'groups',
-      '3': 1,
-      '4': 3,
-      '5': 11,
-      '6': '.fairnsquare.transactions.v1alpha1.Group',
-      '10': 'groups'
-    },
+    {'1': 'groups', '3': 1, '4': 3, '5': 11, '6': '.fairnsquare.transactions.v1alpha1.Group', '10': 'groups'},
   ],
 };
 
@@ -117,21 +82,14 @@ const ListGroupsRequest$json = {
 };
 
 /// Descriptor for `ListGroupsRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listGroupsRequestDescriptor =
-    $convert.base64Decode('ChFMaXN0R3JvdXBzUmVxdWVzdA==');
+final $typed_data.Uint8List listGroupsRequestDescriptor = $convert.base64Decode(
+    'ChFMaXN0R3JvdXBzUmVxdWVzdA==');
 
 @$core.Deprecated('Use listGroupsResponseDescriptor instead')
 const ListGroupsResponse$json = {
   '1': 'ListGroupsResponse',
   '2': [
-    {
-      '1': 'groups',
-      '3': 1,
-      '4': 3,
-      '5': 11,
-      '6': '.fairnsquare.transactions.v1alpha1.Group',
-      '10': 'groups'
-    },
+    {'1': 'groups', '3': 1, '4': 3, '5': 11, '6': '.fairnsquare.transactions.v1alpha1.Group', '10': 'groups'},
   ],
 };
 
@@ -139,3 +97,4 @@ const ListGroupsResponse$json = {
 final $typed_data.Uint8List listGroupsResponseDescriptor = $convert.base64Decode(
     'ChJMaXN0R3JvdXBzUmVzcG9uc2USQAoGZ3JvdXBzGAEgAygLMiguZmFpcm5zcXVhcmUudHJhbn'
     'NhY3Rpb25zLnYxYWxwaGExLkdyb3VwUgZncm91cHM=');
+

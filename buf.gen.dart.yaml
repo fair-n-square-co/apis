@@ -1,6 +1,6 @@
 version: v1
 plugins:
   - plugin: buf.build/protocolbuffers/dart:v21.1.2
-    out: gen/dart/lib/src/generated
+    out: gen/dart/lib
     opt:
       - grpc
