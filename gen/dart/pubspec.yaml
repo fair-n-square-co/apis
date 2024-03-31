@@ -1,0 +1,13 @@
+name: fair_n_square
+description: Dart home for all the APIs in our Fair N Square project.
+
+version: 0.0.1-alpha.1
+
+repository: https://github.com/fair-n-square-co/apis
+
+environment:
+  sdk: '>=3.3.2 <4.0.0'
+dependencies:
+  fixnum: ^1.1.0
+  grpc: ^3.2.4
+  protobuf: ^3.1.0
