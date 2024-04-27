@@ -95,14 +95,24 @@ final $typed_data.Uint8List createGroupRequestDescriptor = $convert
 const CreateGroupResponse$json = {
   '1': 'CreateGroupResponse',
   '2': [
-    {'1': 'group_id', '3': 1, '4': 1, '5': 9, '10': 'groupId'},
+    {
+      '1': 'groups',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.fairnsquare.transactions.v1alpha1.Group',
+      '8': {'3': true},
+      '10': 'groups',
+    },
+    {'1': 'group_id', '3': 2, '4': 1, '5': 9, '10': 'groupId'},
   ],
 };
 
 /// Descriptor for `CreateGroupResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createGroupResponseDescriptor =
-    $convert.base64Decode(
-        'ChNDcmVhdGVHcm91cFJlc3BvbnNlEhkKCGdyb3VwX2lkGAEgASgJUgdncm91cElk');
+final $typed_data.Uint8List createGroupResponseDescriptor = $convert.base64Decode(
+    'ChNDcmVhdGVHcm91cFJlc3BvbnNlEkQKBmdyb3VwcxgBIAMoCzIoLmZhaXJuc3F1YXJlLnRyYW'
+    '5zYWN0aW9ucy52MWFscGhhMS5Hcm91cEICGAFSBmdyb3VwcxIZCghncm91cF9pZBgCIAEoCVIH'
+    'Z3JvdXBJZA==');
 
 @$core.Deprecated('Use listGroupsRequestDescriptor instead')
 const ListGroupsRequest$json = {

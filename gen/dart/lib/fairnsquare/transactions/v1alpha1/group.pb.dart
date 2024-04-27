@@ -347,9 +347,15 @@ class CreateGroupRequest extends $pb.GeneratedMessage {
 
 class CreateGroupResponse extends $pb.GeneratedMessage {
   factory CreateGroupResponse({
+    @$core.Deprecated('This field is deprecated.')
+    $core.Iterable<Group>? groups,
     $core.String? groupId,
   }) {
     final $result = create();
+    if (groups != null) {
+      // ignore: deprecated_member_use_from_same_package
+      $result.groups.addAll(groups);
+    }
     if (groupId != null) {
       $result.groupId = groupId;
     }
@@ -368,7 +374,9 @@ class CreateGroupResponse extends $pb.GeneratedMessage {
       package: const $pb.PackageName(
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'groupId')
+    ..pc<Group>(1, _omitFieldNames ? '' : 'groups', $pb.PbFieldType.PM,
+        subBuilder: Group.create)
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -394,17 +402,21 @@ class CreateGroupResponse extends $pb.GeneratedMessage {
       $pb.GeneratedMessage.$_defaultFor<CreateGroupResponse>(create);
   static CreateGroupResponse? _defaultInstance;
 
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(1)
-  $core.String get groupId => $_getSZ(0);
-  @$pb.TagNumber(1)
+  $core.List<Group> get groups => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.String get groupId => $_getSZ(1);
+  @$pb.TagNumber(2)
   set groupId($core.String v) {
-    $_setString(0, v);
+    $_setString(1, v);
   }
 
-  @$pb.TagNumber(1)
-  $core.bool hasGroupId() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearGroupId() => clearField(1);
+  @$pb.TagNumber(2)
+  $core.bool hasGroupId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearGroupId() => clearField(2);
 }
 
 class ListGroupsRequest extends $pb.GeneratedMessage {
