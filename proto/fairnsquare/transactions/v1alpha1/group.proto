@@ -38,21 +38,20 @@ message Group {
 }
 
 message CreateGroupRequest {
-    string name = 1;
+  string name = 1;
 }
 
 message CreateGroupResponse {
-    repeated Group groups = 1;
+  string group_id = 1;
 }
 
-message ListGroupsRequest {
-}
+message ListGroupsRequest {}
 
 message ListGroupsResponse {
-    repeated Group groups = 1;
+  repeated Group groups = 1;
 }
 
 service GroupService {
-    rpc CreateGroup (CreateGroupRequest) returns (CreateGroupResponse);
-    rpc ListGroups (ListGroupsRequest) returns (ListGroupsResponse);
+  rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse);
+  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse);
 }

@@ -347,11 +347,11 @@ class CreateGroupRequest extends $pb.GeneratedMessage {
 
 class CreateGroupResponse extends $pb.GeneratedMessage {
   factory CreateGroupResponse({
-    $core.Iterable<Group>? groups,
+    $core.String? groupId,
   }) {
     final $result = create();
-    if (groups != null) {
-      $result.groups.addAll(groups);
+    if (groupId != null) {
+      $result.groupId = groupId;
     }
     return $result;
   }
@@ -368,8 +368,7 @@ class CreateGroupResponse extends $pb.GeneratedMessage {
       package: const $pb.PackageName(
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
-    ..pc<Group>(1, _omitFieldNames ? '' : 'groups', $pb.PbFieldType.PM,
-        subBuilder: Group.create)
+    ..aOS(1, _omitFieldNames ? '' : 'groupId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -396,7 +395,16 @@ class CreateGroupResponse extends $pb.GeneratedMessage {
   static CreateGroupResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<Group> get groups => $_getList(0);
+  $core.String get groupId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set groupId($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasGroupId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearGroupId() => clearField(1);
 }
 
 class ListGroupsRequest extends $pb.GeneratedMessage {
