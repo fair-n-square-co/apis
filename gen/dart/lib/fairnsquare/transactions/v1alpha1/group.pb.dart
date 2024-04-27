@@ -368,7 +368,7 @@ class CreateGroupResponse extends $pb.GeneratedMessage {
       package: const $pb.PackageName(
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'groupId')
+    ..aOS(2, _omitFieldNames ? '' : 'groupId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -394,17 +394,17 @@ class CreateGroupResponse extends $pb.GeneratedMessage {
       $pb.GeneratedMessage.$_defaultFor<CreateGroupResponse>(create);
   static CreateGroupResponse? _defaultInstance;
 
-  @$pb.TagNumber(1)
+  @$pb.TagNumber(2)
   $core.String get groupId => $_getSZ(0);
-  @$pb.TagNumber(1)
+  @$pb.TagNumber(2)
   set groupId($core.String v) {
     $_setString(0, v);
   }
 
-  @$pb.TagNumber(1)
+  @$pb.TagNumber(2)
   $core.bool hasGroupId() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearGroupId() => clearField(1);
+  @$pb.TagNumber(2)
+  void clearGroupId() => clearField(2);
 }
 
 class ListGroupsRequest extends $pb.GeneratedMessage {

@@ -42,7 +42,8 @@ message CreateGroupRequest {
 }
 
 message CreateGroupResponse {
-  string group_id = 1;
+  reserved 1;
+  string group_id = 2;
 }
 
 message ListGroupsRequest {}
