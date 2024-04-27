@@ -25,6 +25,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Nothing really
 
+## [0.0.1-alpha.4] - 2024-04-27
+
+### Fixed
+
+- Updated the return value for CreateGroup method
+
+
+## [0.0.1-alpha.5] - 2024-04-27
+
+### Fixed
+
+- Added back the return value for CreateGroup method
+
+
 <!-- template
 ## [Version] - Date
 
