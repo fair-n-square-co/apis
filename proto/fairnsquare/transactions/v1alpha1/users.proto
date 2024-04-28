@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package fairnsquare.transactions.v1alpha1;
+
+option go_package = "github.com/fair-n-square-co/pkg/transactions/v1alpha1";
+
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc IsUsernameAvailable(IsUsernameAvailableRequest) returns (IsUsernameAvailableResponse);
+}
+
+message User {
+  string user_id = 1;
+  string username = 2;
+  string email = 3;
+  string first_name = 4;
+  string last_name = 5;
+}
+
+message CreateUserRequest {
+  string username = 1;
+}
+
+message CreateUserResponse {
+  string user_id = 1;
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message IsUsernameAvailableRequest {
+  string username = 1;
+}
+
+message IsUsernameAvailableResponse {
+  bool available = 1;
+}

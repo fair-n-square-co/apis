@@ -13,13 +13,13 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../../google/protobuf/timestamp.pb.dart' as $1;
+import '../../../google/protobuf/timestamp.pb.dart' as $2;
 
 class Friend extends $pb.GeneratedMessage {
   factory Friend({
     $core.String? id,
-    $1.Timestamp? createdAt,
-    $1.Timestamp? updatedAt,
+    $2.Timestamp? createdAt,
+    $2.Timestamp? updatedAt,
     $core.String? firstName,
     $core.String? lastName,
     $core.String? userName,
@@ -59,10 +59,10 @@ class Friend extends $pb.GeneratedMessage {
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
-    ..aOM<$1.Timestamp>(2, _omitFieldNames ? '' : 'createdAt',
-        subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(3, _omitFieldNames ? '' : 'updatedAt',
-        subBuilder: $1.Timestamp.create)
+    ..aOM<$2.Timestamp>(2, _omitFieldNames ? '' : 'createdAt',
+        subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(3, _omitFieldNames ? '' : 'updatedAt',
+        subBuilder: $2.Timestamp.create)
     ..aOS(4, _omitFieldNames ? '' : 'firstName')
     ..aOS(5, _omitFieldNames ? '' : 'lastName')
     ..aOS(6, _omitFieldNames ? '' : 'userName')
@@ -102,9 +102,9 @@ class Friend extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $1.Timestamp get createdAt => $_getN(1);
+  $2.Timestamp get createdAt => $_getN(1);
   @$pb.TagNumber(2)
-  set createdAt($1.Timestamp v) {
+  set createdAt($2.Timestamp v) {
     setField(2, v);
   }
 
@@ -113,12 +113,12 @@ class Friend extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCreatedAt() => clearField(2);
   @$pb.TagNumber(2)
-  $1.Timestamp ensureCreatedAt() => $_ensure(1);
+  $2.Timestamp ensureCreatedAt() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $1.Timestamp get updatedAt => $_getN(2);
+  $2.Timestamp get updatedAt => $_getN(2);
   @$pb.TagNumber(3)
-  set updatedAt($1.Timestamp v) {
+  set updatedAt($2.Timestamp v) {
     setField(3, v);
   }
 
@@ -127,7 +127,7 @@ class Friend extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearUpdatedAt() => clearField(3);
   @$pb.TagNumber(3)
-  $1.Timestamp ensureUpdatedAt() => $_ensure(2);
+  $2.Timestamp ensureUpdatedAt() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.String get firstName => $_getSZ(3);
@@ -166,12 +166,90 @@ class Friend extends $pb.GeneratedMessage {
   void clearUserName() => clearField(6);
 }
 
+class GroupUser extends $pb.GeneratedMessage {
+  factory GroupUser({
+    $core.String? id,
+    $core.String? name,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (name != null) {
+      $result.name = name;
+    }
+    return $result;
+  }
+  GroupUser._() : super();
+  factory GroupUser.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory GroupUser.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'GroupUser',
+      package: const $pb.PackageName(
+          _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..aOS(2, _omitFieldNames ? '' : 'name')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  GroupUser clone() => GroupUser()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  GroupUser copyWith(void Function(GroupUser) updates) =>
+      super.copyWith((message) => updates(message as GroupUser)) as GroupUser;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GroupUser create() => GroupUser._();
+  GroupUser createEmptyInstance() => create();
+  static $pb.PbList<GroupUser> createRepeated() => $pb.PbList<GroupUser>();
+  @$core.pragma('dart2js:noInline')
+  static GroupUser getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GroupUser>(create);
+  static GroupUser? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get name => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set name($core.String v) {
+    $_setString(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearName() => clearField(2);
+}
+
 class Group extends $pb.GeneratedMessage {
   factory Group({
     $core.String? id,
-    $1.Timestamp? createdAt,
-    $1.Timestamp? updatedAt,
+    $2.Timestamp? createdAt,
+    $2.Timestamp? updatedAt,
     $core.String? name,
+    $core.Iterable<GroupUser>? user,
   }) {
     final $result = create();
     if (id != null) {
@@ -185,6 +263,9 @@ class Group extends $pb.GeneratedMessage {
     }
     if (name != null) {
       $result.name = name;
+    }
+    if (user != null) {
+      $result.user.addAll(user);
     }
     return $result;
   }
@@ -202,11 +283,13 @@ class Group extends $pb.GeneratedMessage {
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
-    ..aOM<$1.Timestamp>(2, _omitFieldNames ? '' : 'createdAt',
-        subBuilder: $1.Timestamp.create)
-    ..aOM<$1.Timestamp>(3, _omitFieldNames ? '' : 'updatedAt',
-        subBuilder: $1.Timestamp.create)
+    ..aOM<$2.Timestamp>(2, _omitFieldNames ? '' : 'createdAt',
+        subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(3, _omitFieldNames ? '' : 'updatedAt',
+        subBuilder: $2.Timestamp.create)
     ..aOS(4, _omitFieldNames ? '' : 'name')
+    ..pc<GroupUser>(5, _omitFieldNames ? '' : 'user', $pb.PbFieldType.PM,
+        subBuilder: GroupUser.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -243,9 +326,9 @@ class Group extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $1.Timestamp get createdAt => $_getN(1);
+  $2.Timestamp get createdAt => $_getN(1);
   @$pb.TagNumber(2)
-  set createdAt($1.Timestamp v) {
+  set createdAt($2.Timestamp v) {
     setField(2, v);
   }
 
@@ -254,12 +337,12 @@ class Group extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCreatedAt() => clearField(2);
   @$pb.TagNumber(2)
-  $1.Timestamp ensureCreatedAt() => $_ensure(1);
+  $2.Timestamp ensureCreatedAt() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $1.Timestamp get updatedAt => $_getN(2);
+  $2.Timestamp get updatedAt => $_getN(2);
   @$pb.TagNumber(3)
-  set updatedAt($1.Timestamp v) {
+  set updatedAt($2.Timestamp v) {
     setField(3, v);
   }
 
@@ -268,7 +351,7 @@ class Group extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearUpdatedAt() => clearField(3);
   @$pb.TagNumber(3)
-  $1.Timestamp ensureUpdatedAt() => $_ensure(2);
+  $2.Timestamp ensureUpdatedAt() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.String get name => $_getSZ(3);
@@ -281,15 +364,22 @@ class Group extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(3);
   @$pb.TagNumber(4)
   void clearName() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<GroupUser> get user => $_getList(4);
 }
 
 class CreateGroupRequest extends $pb.GeneratedMessage {
   factory CreateGroupRequest({
     $core.String? name,
+    $core.Iterable<$core.String>? userIds,
   }) {
     final $result = create();
     if (name != null) {
       $result.name = name;
+    }
+    if (userIds != null) {
+      $result.userIds.addAll(userIds);
     }
     return $result;
   }
@@ -307,6 +397,7 @@ class CreateGroupRequest extends $pb.GeneratedMessage {
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..pPS(2, _omitFieldNames ? '' : 'userIds')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -343,19 +434,16 @@ class CreateGroupRequest extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
   void clearName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.String> get userIds => $_getList(1);
 }
 
 class CreateGroupResponse extends $pb.GeneratedMessage {
   factory CreateGroupResponse({
-    @$core.Deprecated('This field is deprecated.')
-    $core.Iterable<Group>? groups,
     $core.String? groupId,
   }) {
     final $result = create();
-    if (groups != null) {
-      // ignore: deprecated_member_use_from_same_package
-      $result.groups.addAll(groups);
-    }
     if (groupId != null) {
       $result.groupId = groupId;
     }
@@ -374,9 +462,7 @@ class CreateGroupResponse extends $pb.GeneratedMessage {
       package: const $pb.PackageName(
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
-    ..pc<Group>(1, _omitFieldNames ? '' : 'groups', $pb.PbFieldType.PM,
-        subBuilder: Group.create)
-    ..aOS(2, _omitFieldNames ? '' : 'groupId')
+    ..aOS(1, _omitFieldNames ? '' : 'groupId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -402,21 +488,17 @@ class CreateGroupResponse extends $pb.GeneratedMessage {
       $pb.GeneratedMessage.$_defaultFor<CreateGroupResponse>(create);
   static CreateGroupResponse? _defaultInstance;
 
-  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(1)
-  $core.List<Group> get groups => $_getList(0);
-
-  @$pb.TagNumber(2)
-  $core.String get groupId => $_getSZ(1);
-  @$pb.TagNumber(2)
+  $core.String get groupId => $_getSZ(0);
+  @$pb.TagNumber(1)
   set groupId($core.String v) {
-    $_setString(1, v);
+    $_setString(0, v);
   }
 
-  @$pb.TagNumber(2)
-  $core.bool hasGroupId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearGroupId() => clearField(2);
+  @$pb.TagNumber(1)
+  $core.bool hasGroupId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearGroupId() => clearField(1);
 }
 
 class ListGroupsRequest extends $pb.GeneratedMessage {
@@ -512,6 +594,122 @@ class ListGroupsResponse extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<Group> get groups => $_getList(0);
+}
+
+class UpdateUsersInGroupRequest extends $pb.GeneratedMessage {
+  factory UpdateUsersInGroupRequest({
+    $core.String? groupId,
+    $core.Iterable<$core.String>? userId,
+  }) {
+    final $result = create();
+    if (groupId != null) {
+      $result.groupId = groupId;
+    }
+    if (userId != null) {
+      $result.userId.addAll(userId);
+    }
+    return $result;
+  }
+  UpdateUsersInGroupRequest._() : super();
+  factory UpdateUsersInGroupRequest.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory UpdateUsersInGroupRequest.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'UpdateUsersInGroupRequest',
+      package: const $pb.PackageName(
+          _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'groupId')
+    ..pPS(2, _omitFieldNames ? '' : 'userId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  UpdateUsersInGroupRequest clone() =>
+      UpdateUsersInGroupRequest()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  UpdateUsersInGroupRequest copyWith(
+          void Function(UpdateUsersInGroupRequest) updates) =>
+      super.copyWith((message) => updates(message as UpdateUsersInGroupRequest))
+          as UpdateUsersInGroupRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UpdateUsersInGroupRequest create() => UpdateUsersInGroupRequest._();
+  UpdateUsersInGroupRequest createEmptyInstance() => create();
+  static $pb.PbList<UpdateUsersInGroupRequest> createRepeated() =>
+      $pb.PbList<UpdateUsersInGroupRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateUsersInGroupRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<UpdateUsersInGroupRequest>(create);
+  static UpdateUsersInGroupRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get groupId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set groupId($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasGroupId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearGroupId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.String> get userId => $_getList(1);
+}
+
+class UpdateUsersInGroupResponse extends $pb.GeneratedMessage {
+  factory UpdateUsersInGroupResponse() => create();
+  UpdateUsersInGroupResponse._() : super();
+  factory UpdateUsersInGroupResponse.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory UpdateUsersInGroupResponse.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'UpdateUsersInGroupResponse',
+      package: const $pb.PackageName(
+          _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
+      createEmptyInstance: create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  UpdateUsersInGroupResponse clone() =>
+      UpdateUsersInGroupResponse()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  UpdateUsersInGroupResponse copyWith(
+          void Function(UpdateUsersInGroupResponse) updates) =>
+      super.copyWith(
+              (message) => updates(message as UpdateUsersInGroupResponse))
+          as UpdateUsersInGroupResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UpdateUsersInGroupResponse create() => UpdateUsersInGroupResponse._();
+  UpdateUsersInGroupResponse createEmptyInstance() => create();
+  static $pb.PbList<UpdateUsersInGroupResponse> createRepeated() =>
+      $pb.PbList<UpdateUsersInGroupResponse>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateUsersInGroupResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<UpdateUsersInGroupResponse>(create);
+  static UpdateUsersInGroupResponse? _defaultInstance;
 }
 
 const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');

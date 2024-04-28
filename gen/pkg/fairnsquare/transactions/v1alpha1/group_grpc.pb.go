@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	GroupService_CreateGroup_FullMethodName = "/fairnsquare.transactions.v1alpha1.GroupService/CreateGroup"
-	GroupService_ListGroups_FullMethodName  = "/fairnsquare.transactions.v1alpha1.GroupService/ListGroups"
+	GroupService_CreateGroup_FullMethodName        = "/fairnsquare.transactions.v1alpha1.GroupService/CreateGroup"
+	GroupService_ListGroups_FullMethodName         = "/fairnsquare.transactions.v1alpha1.GroupService/ListGroups"
+	GroupService_UpdateUsersInGroup_FullMethodName = "/fairnsquare.transactions.v1alpha1.GroupService/UpdateUsersInGroup"
 )
 
 // GroupServiceClient is the client API for GroupService service.
@@ -29,6 +30,7 @@ const (
 type GroupServiceClient interface {
 	CreateGroup(ctx context.Context, in *CreateGroupRequest, opts ...grpc.CallOption) (*CreateGroupResponse, error)
 	ListGroups(ctx context.Context, in *ListGroupsRequest, opts ...grpc.CallOption) (*ListGroupsResponse, error)
+	UpdateUsersInGroup(ctx context.Context, in *UpdateUsersInGroupRequest, opts ...grpc.CallOption) (*UpdateUsersInGroupResponse, error)
 }
 
 type groupServiceClient struct {
@@ -57,12 +59,22 @@ func (c *groupServiceClient) ListGroups(ctx context.Context, in *ListGroupsReque
 	return out, nil
 }
 
+func (c *groupServiceClient) UpdateUsersInGroup(ctx context.Context, in *UpdateUsersInGroupRequest, opts ...grpc.CallOption) (*UpdateUsersInGroupResponse, error) {
+	out := new(UpdateUsersInGroupResponse)
+	err := c.cc.Invoke(ctx, GroupService_UpdateUsersInGroup_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GroupServiceServer is the server API for GroupService service.
 // All implementations must embed UnimplementedGroupServiceServer
 // for forward compatibility
 type GroupServiceServer interface {
 	CreateGroup(context.Context, *CreateGroupRequest) (*CreateGroupResponse, error)
 	ListGroups(context.Context, *ListGroupsRequest) (*ListGroupsResponse, error)
+	UpdateUsersInGroup(context.Context, *UpdateUsersInGroupRequest) (*UpdateUsersInGroupResponse, error)
 	mustEmbedUnimplementedGroupServiceServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedGroupServiceServer) CreateGroup(context.Context, *CreateGroup
 }
 func (UnimplementedGroupServiceServer) ListGroups(context.Context, *ListGroupsRequest) (*ListGroupsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListGroups not implemented")
+}
+func (UnimplementedGroupServiceServer) UpdateUsersInGroup(context.Context, *UpdateUsersInGroupRequest) (*UpdateUsersInGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUsersInGroup not implemented")
 }
 func (UnimplementedGroupServiceServer) mustEmbedUnimplementedGroupServiceServer() {}
 
@@ -125,6 +140,24 @@ func _GroupService_ListGroups_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GroupService_UpdateUsersInGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUsersInGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GroupServiceServer).UpdateUsersInGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GroupService_UpdateUsersInGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GroupServiceServer).UpdateUsersInGroup(ctx, req.(*UpdateUsersInGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GroupService_ServiceDesc is the grpc.ServiceDesc for GroupService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var GroupService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListGroups",
 			Handler:    _GroupService_ListGroups_Handler,
+		},
+		{
+			MethodName: "UpdateUsersInGroup",
+			Handler:    _GroupService_UpdateUsersInGroup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

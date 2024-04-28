@@ -21,6 +21,12 @@ option go_package = "github.com/fair-n-square-co/pkg/transactions/v1alpha1";
    SettleTransaction (or part of create transaction)
 */
 
+service GroupService {
+  rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse);
+  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse);
+  rpc UpdateUsersInGroup(UpdateUsersInGroupRequest) returns (UpdateUsersInGroupResponse);
+}
+
 message Friend {
   string id = 1;
   google.protobuf.Timestamp created_at = 2;
@@ -30,20 +36,26 @@ message Friend {
   string user_name = 6;
 }
 
+message GroupUser {
+  string id = 1;
+  string name = 2;
+}
+
 message Group {
   string id = 1;
   google.protobuf.Timestamp created_at = 2;
   google.protobuf.Timestamp updated_at = 3;
   string name = 4;
+  repeated GroupUser user = 5;
 }
 
 message CreateGroupRequest {
   string name = 1;
+  repeated string user_ids = 2;
 }
 
 message CreateGroupResponse {
-  repeated Group groups = 1 [deprecated = true];
-  string group_id = 2;
+  string group_id = 1;
 }
 
 message ListGroupsRequest {}
@@ -52,7 +64,9 @@ message ListGroupsResponse {
   repeated Group groups = 1;
 }
 
-service GroupService {
-  rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse);
-  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse);
+message UpdateUsersInGroupRequest {
+  string group_id = 1;
+  repeated string user_id = 2; // All the users in the group. This will replace the existing users
 }
+
+message UpdateUsersInGroupResponse {}
