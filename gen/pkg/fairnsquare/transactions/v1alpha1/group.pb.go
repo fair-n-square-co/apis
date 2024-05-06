@@ -21,106 +21,20 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Friend struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	FirstName string                 `protobuf:"bytes,4,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName  string                 `protobuf:"bytes,5,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	UserName  string                 `protobuf:"bytes,6,opt,name=user_name,json=userName,proto3" json:"user_name,omitempty"`
-}
-
-func (x *Friend) Reset() {
-	*x = Friend{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Friend) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Friend) ProtoMessage() {}
-
-func (x *Friend) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Friend.ProtoReflect.Descriptor instead.
-func (*Friend) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *Friend) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *Friend) GetCreatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return nil
-}
-
-func (x *Friend) GetUpdatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.UpdatedAt
-	}
-	return nil
-}
-
-func (x *Friend) GetFirstName() string {
-	if x != nil {
-		return x.FirstName
-	}
-	return ""
-}
-
-func (x *Friend) GetLastName() string {
-	if x != nil {
-		return x.LastName
-	}
-	return ""
-}
-
-func (x *Friend) GetUserName() string {
-	if x != nil {
-		return x.UserName
-	}
-	return ""
-}
-
 type GroupUser struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Id        string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	FirstName string `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName  string `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
 }
 
 func (x *GroupUser) Reset() {
 	*x = GroupUser{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[1]
+		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -133,7 +47,7 @@ func (x *GroupUser) String() string {
 func (*GroupUser) ProtoMessage() {}
 
 func (x *GroupUser) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[1]
+	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -146,7 +60,7 @@ func (x *GroupUser) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GroupUser.ProtoReflect.Descriptor instead.
 func (*GroupUser) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{1}
+	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *GroupUser) GetId() string {
@@ -156,9 +70,16 @@ func (x *GroupUser) GetId() string {
 	return ""
 }
 
-func (x *GroupUser) GetName() string {
+func (x *GroupUser) GetFirstName() string {
 	if x != nil {
-		return x.Name
+		return x.FirstName
+	}
+	return ""
+}
+
+func (x *GroupUser) GetLastName() string {
+	if x != nil {
+		return x.LastName
 	}
 	return ""
 }
@@ -178,7 +99,7 @@ type Group struct {
 func (x *Group) Reset() {
 	*x = Group{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[2]
+		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -191,7 +112,7 @@ func (x *Group) String() string {
 func (*Group) ProtoMessage() {}
 
 func (x *Group) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[2]
+	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +125,7 @@ func (x *Group) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Group.ProtoReflect.Descriptor instead.
 func (*Group) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{2}
+	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Group) GetId() string {
@@ -254,7 +175,7 @@ type CreateGroupRequest struct {
 func (x *CreateGroupRequest) Reset() {
 	*x = CreateGroupRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[3]
+		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -267,7 +188,7 @@ func (x *CreateGroupRequest) String() string {
 func (*CreateGroupRequest) ProtoMessage() {}
 
 func (x *CreateGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[3]
+	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -280,7 +201,7 @@ func (x *CreateGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateGroupRequest.ProtoReflect.Descriptor instead.
 func (*CreateGroupRequest) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{3}
+	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CreateGroupRequest) GetName() string {
@@ -308,7 +229,7 @@ type CreateGroupResponse struct {
 func (x *CreateGroupResponse) Reset() {
 	*x = CreateGroupResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[4]
+		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -321,7 +242,7 @@ func (x *CreateGroupResponse) String() string {
 func (*CreateGroupResponse) ProtoMessage() {}
 
 func (x *CreateGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[4]
+	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -334,7 +255,7 @@ func (x *CreateGroupResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateGroupResponse.ProtoReflect.Descriptor instead.
 func (*CreateGroupResponse) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{4}
+	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CreateGroupResponse) GetGroupId() string {
@@ -353,7 +274,7 @@ type ListGroupsRequest struct {
 func (x *ListGroupsRequest) Reset() {
 	*x = ListGroupsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[5]
+		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -366,7 +287,7 @@ func (x *ListGroupsRequest) String() string {
 func (*ListGroupsRequest) ProtoMessage() {}
 
 func (x *ListGroupsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[5]
+	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -379,7 +300,7 @@ func (x *ListGroupsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGroupsRequest.ProtoReflect.Descriptor instead.
 func (*ListGroupsRequest) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{5}
+	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{4}
 }
 
 type ListGroupsResponse struct {
@@ -393,7 +314,7 @@ type ListGroupsResponse struct {
 func (x *ListGroupsResponse) Reset() {
 	*x = ListGroupsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[6]
+		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -406,7 +327,7 @@ func (x *ListGroupsResponse) String() string {
 func (*ListGroupsResponse) ProtoMessage() {}
 
 func (x *ListGroupsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[6]
+	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -419,7 +340,7 @@ func (x *ListGroupsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGroupsResponse.ProtoReflect.Descriptor instead.
 func (*ListGroupsResponse) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{6}
+	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ListGroupsResponse) GetGroups() []*Group {
@@ -435,13 +356,13 @@ type UpdateUsersInGroupRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	GroupId string   `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	UserId  []string `protobuf:"bytes,2,rep,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // All the users in the group. This will replace the existing users
+	UserIds []string `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"` // All the users in the group. This will replace the existing users
 }
 
 func (x *UpdateUsersInGroupRequest) Reset() {
 	*x = UpdateUsersInGroupRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[7]
+		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -454,7 +375,7 @@ func (x *UpdateUsersInGroupRequest) String() string {
 func (*UpdateUsersInGroupRequest) ProtoMessage() {}
 
 func (x *UpdateUsersInGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[7]
+	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -467,7 +388,7 @@ func (x *UpdateUsersInGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUsersInGroupRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUsersInGroupRequest) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{7}
+	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UpdateUsersInGroupRequest) GetGroupId() string {
@@ -477,9 +398,9 @@ func (x *UpdateUsersInGroupRequest) GetGroupId() string {
 	return ""
 }
 
-func (x *UpdateUsersInGroupRequest) GetUserId() []string {
+func (x *UpdateUsersInGroupRequest) GetUserIds() []string {
 	if x != nil {
-		return x.UserId
+		return x.UserIds
 	}
 	return nil
 }
@@ -493,7 +414,7 @@ type UpdateUsersInGroupResponse struct {
 func (x *UpdateUsersInGroupResponse) Reset() {
 	*x = UpdateUsersInGroupResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[8]
+		mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -506,7 +427,7 @@ func (x *UpdateUsersInGroupResponse) String() string {
 func (*UpdateUsersInGroupResponse) ProtoMessage() {}
 
 func (x *UpdateUsersInGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[8]
+	mi := &file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -519,7 +440,7 @@ func (x *UpdateUsersInGroupResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUsersInGroupResponse.ProtoReflect.Descriptor instead.
 func (*UpdateUsersInGroupResponse) Descriptor() ([]byte, []int) {
-	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{8}
+	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP(), []int{7}
 }
 
 var File_fairnsquare_transactions_v1alpha1_group_proto protoreflect.FileDescriptor
@@ -532,58 +453,46 @@ var file_fairnsquare_transactions_v1alpha1_group_proto_rawDesc = []byte{
 	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x76, 0x31, 0x61, 0x6c, 0x70, 0x68,
 	0x61, 0x31, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x22, 0xe7, 0x01, 0x0a, 0x06, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x12, 0x0e,
-	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x39,
-	0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09,
-	0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x39, 0x0a, 0x0a, 0x75, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e,
-	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
-	0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74,
-	0x65, 0x64, 0x41, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x66, 0x69, 0x72, 0x73, 0x74, 0x5f, 0x6e, 0x61,
-	0x6d, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e,
-	0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x6c, 0x61, 0x73, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65,
-	0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65,
-	0x12, 0x1b, 0x0a, 0x09, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x06, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x22, 0x2f, 0x0a,
-	0x09, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x55, 0x73, 0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61,
-	0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0xe3,
-	0x01, 0x0a, 0x05, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x39, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67,
-	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54,
-	0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x64, 0x41, 0x74, 0x12, 0x39, 0x0a, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61,
-	0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74,
-	0x61, 0x6d, 0x70, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x12,
-	0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61,
-	0x6d, 0x65, 0x12, 0x40, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x05, 0x20, 0x03, 0x28, 0x0b,
-	0x32, 0x2c, 0x2e, 0x66, 0x61, 0x69, 0x72, 0x6e, 0x73, 0x71, 0x75, 0x61, 0x72, 0x65, 0x2e, 0x74,
-	0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x76, 0x31, 0x61, 0x6c,
-	0x70, 0x68, 0x61, 0x31, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04,
-	0x75, 0x73, 0x65, 0x72, 0x22, 0x43, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x72,
-	0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61,
-	0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x19,
+	0x6f, 0x74, 0x6f, 0x22, 0x57, 0x0a, 0x09, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x55, 0x73, 0x65, 0x72,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x1d, 0x0a, 0x0a, 0x66, 0x69, 0x72, 0x73, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12,
+	0x1b, 0x0a, 0x09, 0x6c, 0x61, 0x73, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x08, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x22, 0xe3, 0x01, 0x0a,
+	0x05, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x39, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x64, 0x5f, 0x61, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f,
+	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41,
+	0x74, 0x12, 0x39, 0x0a, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d,
+	0x70, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x12, 0x0a, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65,
+	0x12, 0x40, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x05, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2c,
+	0x2e, 0x66, 0x61, 0x69, 0x72, 0x6e, 0x73, 0x71, 0x75, 0x61, 0x72, 0x65, 0x2e, 0x74, 0x72, 0x61,
+	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x76, 0x31, 0x61, 0x6c, 0x70, 0x68,
+	0x61, 0x31, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73,
+	0x65, 0x72, 0x22, 0x43, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x19, 0x0a, 0x08,
+	0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07,
+	0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x73, 0x22, 0x30, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x19,
+	0x0a, 0x08, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x22, 0x13, 0x0a, 0x11, 0x4c, 0x69, 0x73,
+	0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x56,
+	0x0a, 0x12, 0x4c, 0x69, 0x73, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x06, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x66, 0x61, 0x69, 0x72, 0x6e, 0x73, 0x71, 0x75, 0x61,
+	0x72, 0x65, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e,
+	0x76, 0x31, 0x61, 0x6c, 0x70, 0x68, 0x61, 0x31, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x06,
+	0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x22, 0x51, 0x0a, 0x19, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x55, 0x73, 0x65, 0x72, 0x73, 0x49, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x12, 0x19,
 	0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09,
-	0x52, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x73, 0x22, 0x30, 0x0a, 0x13, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x19, 0x0a, 0x08, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x22, 0x13, 0x0a, 0x11, 0x4c,
-	0x69, 0x73, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x22, 0x56, 0x0a, 0x12, 0x4c, 0x69, 0x73, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x06, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73,
-	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x66, 0x61, 0x69, 0x72, 0x6e, 0x73, 0x71,
-	0x75, 0x61, 0x72, 0x65, 0x2e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
-	0x73, 0x2e, 0x76, 0x31, 0x61, 0x6c, 0x70, 0x68, 0x61, 0x31, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70,
-	0x52, 0x06, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x22, 0x4f, 0x0a, 0x19, 0x55, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x49, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64,
-	0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x03, 0x28,
-	0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x1c, 0x0a, 0x1a, 0x55, 0x70, 0x64,
+	0x52, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x73, 0x22, 0x1c, 0x0a, 0x1a, 0x55, 0x70, 0x64,
 	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x49, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0x9b, 0x03, 0x0a, 0x0c, 0x47, 0x72, 0x6f, 0x75,
 	0x70, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x7c, 0x0a, 0x0b, 0x43, 0x72, 0x65, 0x61,
@@ -630,37 +539,34 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_rawDescGZIP() []byte {
 	return file_fairnsquare_transactions_v1alpha1_group_proto_rawDescData
 }
 
-var file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_fairnsquare_transactions_v1alpha1_group_proto_goTypes = []interface{}{
-	(*Friend)(nil),                     // 0: fairnsquare.transactions.v1alpha1.Friend
-	(*GroupUser)(nil),                  // 1: fairnsquare.transactions.v1alpha1.GroupUser
-	(*Group)(nil),                      // 2: fairnsquare.transactions.v1alpha1.Group
-	(*CreateGroupRequest)(nil),         // 3: fairnsquare.transactions.v1alpha1.CreateGroupRequest
-	(*CreateGroupResponse)(nil),        // 4: fairnsquare.transactions.v1alpha1.CreateGroupResponse
-	(*ListGroupsRequest)(nil),          // 5: fairnsquare.transactions.v1alpha1.ListGroupsRequest
-	(*ListGroupsResponse)(nil),         // 6: fairnsquare.transactions.v1alpha1.ListGroupsResponse
-	(*UpdateUsersInGroupRequest)(nil),  // 7: fairnsquare.transactions.v1alpha1.UpdateUsersInGroupRequest
-	(*UpdateUsersInGroupResponse)(nil), // 8: fairnsquare.transactions.v1alpha1.UpdateUsersInGroupResponse
-	(*timestamppb.Timestamp)(nil),      // 9: google.protobuf.Timestamp
+	(*GroupUser)(nil),                  // 0: fairnsquare.transactions.v1alpha1.GroupUser
+	(*Group)(nil),                      // 1: fairnsquare.transactions.v1alpha1.Group
+	(*CreateGroupRequest)(nil),         // 2: fairnsquare.transactions.v1alpha1.CreateGroupRequest
+	(*CreateGroupResponse)(nil),        // 3: fairnsquare.transactions.v1alpha1.CreateGroupResponse
+	(*ListGroupsRequest)(nil),          // 4: fairnsquare.transactions.v1alpha1.ListGroupsRequest
+	(*ListGroupsResponse)(nil),         // 5: fairnsquare.transactions.v1alpha1.ListGroupsResponse
+	(*UpdateUsersInGroupRequest)(nil),  // 6: fairnsquare.transactions.v1alpha1.UpdateUsersInGroupRequest
+	(*UpdateUsersInGroupResponse)(nil), // 7: fairnsquare.transactions.v1alpha1.UpdateUsersInGroupResponse
+	(*timestamppb.Timestamp)(nil),      // 8: google.protobuf.Timestamp
 }
 var file_fairnsquare_transactions_v1alpha1_group_proto_depIdxs = []int32{
-	9, // 0: fairnsquare.transactions.v1alpha1.Friend.created_at:type_name -> google.protobuf.Timestamp
-	9, // 1: fairnsquare.transactions.v1alpha1.Friend.updated_at:type_name -> google.protobuf.Timestamp
-	9, // 2: fairnsquare.transactions.v1alpha1.Group.created_at:type_name -> google.protobuf.Timestamp
-	9, // 3: fairnsquare.transactions.v1alpha1.Group.updated_at:type_name -> google.protobuf.Timestamp
-	1, // 4: fairnsquare.transactions.v1alpha1.Group.user:type_name -> fairnsquare.transactions.v1alpha1.GroupUser
-	2, // 5: fairnsquare.transactions.v1alpha1.ListGroupsResponse.groups:type_name -> fairnsquare.transactions.v1alpha1.Group
-	3, // 6: fairnsquare.transactions.v1alpha1.GroupService.CreateGroup:input_type -> fairnsquare.transactions.v1alpha1.CreateGroupRequest
-	5, // 7: fairnsquare.transactions.v1alpha1.GroupService.ListGroups:input_type -> fairnsquare.transactions.v1alpha1.ListGroupsRequest
-	7, // 8: fairnsquare.transactions.v1alpha1.GroupService.UpdateUsersInGroup:input_type -> fairnsquare.transactions.v1alpha1.UpdateUsersInGroupRequest
-	4, // 9: fairnsquare.transactions.v1alpha1.GroupService.CreateGroup:output_type -> fairnsquare.transactions.v1alpha1.CreateGroupResponse
-	6, // 10: fairnsquare.transactions.v1alpha1.GroupService.ListGroups:output_type -> fairnsquare.transactions.v1alpha1.ListGroupsResponse
-	8, // 11: fairnsquare.transactions.v1alpha1.GroupService.UpdateUsersInGroup:output_type -> fairnsquare.transactions.v1alpha1.UpdateUsersInGroupResponse
-	9, // [9:12] is the sub-list for method output_type
-	6, // [6:9] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	8, // 0: fairnsquare.transactions.v1alpha1.Group.created_at:type_name -> google.protobuf.Timestamp
+	8, // 1: fairnsquare.transactions.v1alpha1.Group.updated_at:type_name -> google.protobuf.Timestamp
+	0, // 2: fairnsquare.transactions.v1alpha1.Group.user:type_name -> fairnsquare.transactions.v1alpha1.GroupUser
+	1, // 3: fairnsquare.transactions.v1alpha1.ListGroupsResponse.groups:type_name -> fairnsquare.transactions.v1alpha1.Group
+	2, // 4: fairnsquare.transactions.v1alpha1.GroupService.CreateGroup:input_type -> fairnsquare.transactions.v1alpha1.CreateGroupRequest
+	4, // 5: fairnsquare.transactions.v1alpha1.GroupService.ListGroups:input_type -> fairnsquare.transactions.v1alpha1.ListGroupsRequest
+	6, // 6: fairnsquare.transactions.v1alpha1.GroupService.UpdateUsersInGroup:input_type -> fairnsquare.transactions.v1alpha1.UpdateUsersInGroupRequest
+	3, // 7: fairnsquare.transactions.v1alpha1.GroupService.CreateGroup:output_type -> fairnsquare.transactions.v1alpha1.CreateGroupResponse
+	5, // 8: fairnsquare.transactions.v1alpha1.GroupService.ListGroups:output_type -> fairnsquare.transactions.v1alpha1.ListGroupsResponse
+	7, // 9: fairnsquare.transactions.v1alpha1.GroupService.UpdateUsersInGroup:output_type -> fairnsquare.transactions.v1alpha1.UpdateUsersInGroupResponse
+	7, // [7:10] is the sub-list for method output_type
+	4, // [4:7] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_fairnsquare_transactions_v1alpha1_group_proto_init() }
@@ -670,18 +576,6 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Friend); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GroupUser); i {
 			case 0:
 				return &v.state
@@ -693,7 +587,7 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 				return nil
 			}
 		}
-		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Group); i {
 			case 0:
 				return &v.state
@@ -705,7 +599,7 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 				return nil
 			}
 		}
-		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateGroupRequest); i {
 			case 0:
 				return &v.state
@@ -717,7 +611,7 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 				return nil
 			}
 		}
-		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateGroupResponse); i {
 			case 0:
 				return &v.state
@@ -729,7 +623,7 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 				return nil
 			}
 		}
-		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListGroupsRequest); i {
 			case 0:
 				return &v.state
@@ -741,7 +635,7 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 				return nil
 			}
 		}
-		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListGroupsResponse); i {
 			case 0:
 				return &v.state
@@ -753,7 +647,7 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 				return nil
 			}
 		}
-		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateUsersInGroupRequest); i {
 			case 0:
 				return &v.state
@@ -765,7 +659,7 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 				return nil
 			}
 		}
-		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_fairnsquare_transactions_v1alpha1_group_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateUsersInGroupResponse); i {
 			case 0:
 				return &v.state
@@ -784,7 +678,7 @@ func file_fairnsquare_transactions_v1alpha1_group_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_fairnsquare_transactions_v1alpha1_group_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

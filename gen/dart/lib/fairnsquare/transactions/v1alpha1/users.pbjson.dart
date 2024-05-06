@@ -36,12 +36,17 @@ const CreateUserRequest$json = {
   '1': 'CreateUserRequest',
   '2': [
     {'1': 'username', '3': 1, '4': 1, '5': 9, '10': 'username'},
+    {'1': 'email', '3': 2, '4': 1, '5': 9, '10': 'email'},
+    {'1': 'first_name', '3': 3, '4': 1, '5': 9, '10': 'firstName'},
+    {'1': 'last_name', '3': 4, '4': 1, '5': 9, '10': 'lastName'},
   ],
 };
 
 /// Descriptor for `CreateUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createUserRequestDescriptor = $convert.base64Decode(
-    'ChFDcmVhdGVVc2VyUmVxdWVzdBIaCgh1c2VybmFtZRgBIAEoCVIIdXNlcm5hbWU=');
+    'ChFDcmVhdGVVc2VyUmVxdWVzdBIaCgh1c2VybmFtZRgBIAEoCVIIdXNlcm5hbWUSFAoFZW1haW'
+    'wYAiABKAlSBWVtYWlsEh0KCmZpcnN0X25hbWUYAyABKAlSCWZpcnN0TmFtZRIbCglsYXN0X25h'
+    'bWUYBCABKAlSCGxhc3ROYW1l');
 
 @$core.Deprecated('Use createUserResponseDescriptor instead')
 const CreateUserResponse$json = {
@@ -60,13 +65,13 @@ final $typed_data.Uint8List createUserResponseDescriptor =
 const GetUserRequest$json = {
   '1': 'GetUserRequest',
   '2': [
-    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'username', '3': 1, '4': 1, '5': 9, '10': 'username'},
   ],
 };
 
 /// Descriptor for `GetUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getUserRequestDescriptor = $convert
-    .base64Decode('Cg5HZXRVc2VyUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQ=');
+final $typed_data.Uint8List getUserRequestDescriptor = $convert.base64Decode(
+    'Cg5HZXRVc2VyUmVxdWVzdBIaCgh1c2VybmFtZRgBIAEoCVIIdXNlcm5hbWU=');
 
 @$core.Deprecated('Use getUserResponseDescriptor instead')
 const GetUserResponse$json = {

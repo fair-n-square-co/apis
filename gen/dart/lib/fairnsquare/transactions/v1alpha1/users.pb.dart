@@ -144,10 +144,22 @@ class User extends $pb.GeneratedMessage {
 class CreateUserRequest extends $pb.GeneratedMessage {
   factory CreateUserRequest({
     $core.String? username,
+    $core.String? email,
+    $core.String? firstName,
+    $core.String? lastName,
   }) {
     final $result = create();
     if (username != null) {
       $result.username = username;
+    }
+    if (email != null) {
+      $result.email = email;
+    }
+    if (firstName != null) {
+      $result.firstName = firstName;
+    }
+    if (lastName != null) {
+      $result.lastName = lastName;
     }
     return $result;
   }
@@ -165,6 +177,9 @@ class CreateUserRequest extends $pb.GeneratedMessage {
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'username')
+    ..aOS(2, _omitFieldNames ? '' : 'email')
+    ..aOS(3, _omitFieldNames ? '' : 'firstName')
+    ..aOS(4, _omitFieldNames ? '' : 'lastName')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -201,6 +216,42 @@ class CreateUserRequest extends $pb.GeneratedMessage {
   $core.bool hasUsername() => $_has(0);
   @$pb.TagNumber(1)
   void clearUsername() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get email => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set email($core.String v) {
+    $_setString(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasEmail() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEmail() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get firstName => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set firstName($core.String v) {
+    $_setString(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasFirstName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFirstName() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get lastName => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set lastName($core.String v) {
+    $_setString(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasLastName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearLastName() => clearField(4);
 }
 
 class CreateUserResponse extends $pb.GeneratedMessage {
@@ -267,11 +318,11 @@ class CreateUserResponse extends $pb.GeneratedMessage {
 
 class GetUserRequest extends $pb.GeneratedMessage {
   factory GetUserRequest({
-    $core.String? userId,
+    $core.String? username,
   }) {
     final $result = create();
-    if (userId != null) {
-      $result.userId = userId;
+    if (username != null) {
+      $result.username = username;
     }
     return $result;
   }
@@ -288,7 +339,7 @@ class GetUserRequest extends $pb.GeneratedMessage {
       package: const $pb.PackageName(
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'userId')
+    ..aOS(1, _omitFieldNames ? '' : 'username')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -315,16 +366,16 @@ class GetUserRequest extends $pb.GeneratedMessage {
   static GetUserRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get userId => $_getSZ(0);
+  $core.String get username => $_getSZ(0);
   @$pb.TagNumber(1)
-  set userId($core.String v) {
+  set username($core.String v) {
     $_setString(0, v);
   }
 
   @$pb.TagNumber(1)
-  $core.bool hasUserId() => $_has(0);
+  $core.bool hasUsername() => $_has(0);
   @$pb.TagNumber(1)
-  void clearUserId() => clearField(1);
+  void clearUsername() => clearField(1);
 }
 
 class GetUserResponse extends $pb.GeneratedMessage {

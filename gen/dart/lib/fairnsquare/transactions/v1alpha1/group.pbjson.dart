@@ -13,53 +13,20 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use friendDescriptor instead')
-const Friend$json = {
-  '1': 'Friend',
-  '2': [
-    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    {
-      '1': 'created_at',
-      '3': 2,
-      '4': 1,
-      '5': 11,
-      '6': '.google.protobuf.Timestamp',
-      '10': 'createdAt'
-    },
-    {
-      '1': 'updated_at',
-      '3': 3,
-      '4': 1,
-      '5': 11,
-      '6': '.google.protobuf.Timestamp',
-      '10': 'updatedAt'
-    },
-    {'1': 'first_name', '3': 4, '4': 1, '5': 9, '10': 'firstName'},
-    {'1': 'last_name', '3': 5, '4': 1, '5': 9, '10': 'lastName'},
-    {'1': 'user_name', '3': 6, '4': 1, '5': 9, '10': 'userName'},
-  ],
-};
-
-/// Descriptor for `Friend`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List friendDescriptor = $convert.base64Decode(
-    'CgZGcmllbmQSDgoCaWQYASABKAlSAmlkEjkKCmNyZWF0ZWRfYXQYAiABKAsyGi5nb29nbGUucH'
-    'JvdG9idWYuVGltZXN0YW1wUgljcmVhdGVkQXQSOQoKdXBkYXRlZF9hdBgDIAEoCzIaLmdvb2ds'
-    'ZS5wcm90b2J1Zi5UaW1lc3RhbXBSCXVwZGF0ZWRBdBIdCgpmaXJzdF9uYW1lGAQgASgJUglmaX'
-    'JzdE5hbWUSGwoJbGFzdF9uYW1lGAUgASgJUghsYXN0TmFtZRIbCgl1c2VyX25hbWUYBiABKAlS'
-    'CHVzZXJOYW1l');
-
 @$core.Deprecated('Use groupUserDescriptor instead')
 const GroupUser$json = {
   '1': 'GroupUser',
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'first_name', '3': 2, '4': 1, '5': 9, '10': 'firstName'},
+    {'1': 'last_name', '3': 3, '4': 1, '5': 9, '10': 'lastName'},
   ],
 };
 
 /// Descriptor for `GroupUser`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List groupUserDescriptor = $convert.base64Decode(
-    'CglHcm91cFVzZXISDgoCaWQYASABKAlSAmlkEhIKBG5hbWUYAiABKAlSBG5hbWU=');
+    'CglHcm91cFVzZXISDgoCaWQYASABKAlSAmlkEh0KCmZpcnN0X25hbWUYAiABKAlSCWZpcnN0Tm'
+    'FtZRIbCglsYXN0X25hbWUYAyABKAlSCGxhc3ROYW1l');
 
 @$core.Deprecated('Use groupDescriptor instead')
 const Group$json = {
@@ -163,7 +130,7 @@ const UpdateUsersInGroupRequest$json = {
   '1': 'UpdateUsersInGroupRequest',
   '2': [
     {'1': 'group_id', '3': 1, '4': 1, '5': 9, '10': 'groupId'},
-    {'1': 'user_id', '3': 2, '4': 3, '5': 9, '10': 'userId'},
+    {'1': 'user_ids', '3': 2, '4': 3, '5': 9, '10': 'userIds'},
   ],
 };
 
@@ -171,7 +138,7 @@ const UpdateUsersInGroupRequest$json = {
 final $typed_data.Uint8List updateUsersInGroupRequestDescriptor =
     $convert.base64Decode(
         'ChlVcGRhdGVVc2Vyc0luR3JvdXBSZXF1ZXN0EhkKCGdyb3VwX2lkGAEgASgJUgdncm91cElkEh'
-        'cKB3VzZXJfaWQYAiADKAlSBnVzZXJJZA==');
+        'kKCHVzZXJfaWRzGAIgAygJUgd1c2VySWRz');
 
 @$core.Deprecated('Use updateUsersInGroupResponseDescriptor instead')
 const UpdateUsersInGroupResponse$json = {
