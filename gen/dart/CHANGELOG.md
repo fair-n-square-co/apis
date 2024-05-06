@@ -38,6 +38,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added back the return value for CreateGroup method
 
+## [0.0.1-alpha.6] - 2024-05-06
+
+### Fixed
+
+- Add 4 proto calls - GetUser, CreateUser, IsUserAvailable, UpdateUsersInGroup
+- Removed unused proto messages
 
 <!-- template
 ## [Version] - Date

@@ -33,6 +33,12 @@ class GroupServiceClient extends $grpc.Client {
           ($0.ListGroupsRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.ListGroupsResponse.fromBuffer(value));
+  static final _$updateUsersInGroup = $grpc.ClientMethod<
+          $0.UpdateUsersInGroupRequest, $0.UpdateUsersInGroupResponse>(
+      '/fairnsquare.transactions.v1alpha1.GroupService/UpdateUsersInGroup',
+      ($0.UpdateUsersInGroupRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.UpdateUsersInGroupResponse.fromBuffer(value));
 
   GroupServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -49,6 +55,12 @@ class GroupServiceClient extends $grpc.Client {
       $0.ListGroupsRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listGroups, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.UpdateUsersInGroupResponse> updateUsersInGroup(
+      $0.UpdateUsersInGroupRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateUsersInGroup, request, options: options);
   }
 }
 
@@ -73,6 +85,15 @@ abstract class GroupServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ListGroupsRequest.fromBuffer(value),
         ($0.ListGroupsResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UpdateUsersInGroupRequest,
+            $0.UpdateUsersInGroupResponse>(
+        'UpdateUsersInGroup',
+        updateUsersInGroup_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.UpdateUsersInGroupRequest.fromBuffer(value),
+        ($0.UpdateUsersInGroupResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateGroupResponse> createGroup_Pre($grpc.ServiceCall call,
@@ -85,8 +106,16 @@ abstract class GroupServiceBase extends $grpc.Service {
     return listGroups(call, await request);
   }
 
+  $async.Future<$0.UpdateUsersInGroupResponse> updateUsersInGroup_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.UpdateUsersInGroupRequest> request) async {
+    return updateUsersInGroup(call, await request);
+  }
+
   $async.Future<$0.CreateGroupResponse> createGroup(
       $grpc.ServiceCall call, $0.CreateGroupRequest request);
   $async.Future<$0.ListGroupsResponse> listGroups(
       $grpc.ServiceCall call, $0.ListGroupsRequest request);
+  $async.Future<$0.UpdateUsersInGroupResponse> updateUsersInGroup(
+      $grpc.ServiceCall call, $0.UpdateUsersInGroupRequest request);
 }

@@ -6,28 +6,16 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/fair-n-square-co/pkg/transactions/v1alpha1";
 
-/*
-   Services to create and manage split transactions
+service GroupService {
+  rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse);
+  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse);
+  rpc UpdateUsersInGroup(UpdateUsersInGroupRequest) returns (UpdateUsersInGroupResponse);
+}
 
-   - Home page
-
-   1. List of groups
-   2. Create new Transaction button
-
-
-
-   1. ListGroups (List of groups for the logged in user)
-   2. CreateTransaction
-   SettleTransaction (or part of create transaction)
-*/
-
-message Friend {
+message GroupUser {
   string id = 1;
-  google.protobuf.Timestamp created_at = 2;
-  google.protobuf.Timestamp updated_at = 3;
-  string first_name = 4;
-  string last_name = 5;
-  string user_name = 6;
+  string first_name = 2;
+  string last_name = 3;
 }
 
 message Group {
@@ -35,15 +23,16 @@ message Group {
   google.protobuf.Timestamp created_at = 2;
   google.protobuf.Timestamp updated_at = 3;
   string name = 4;
+  repeated GroupUser user = 5;
 }
 
 message CreateGroupRequest {
   string name = 1;
+  repeated string user_ids = 2;
 }
 
 message CreateGroupResponse {
-  repeated Group groups = 1 [deprecated = true];
-  string group_id = 2;
+  string group_id = 1;
 }
 
 message ListGroupsRequest {}
@@ -52,7 +41,9 @@ message ListGroupsResponse {
   repeated Group groups = 1;
 }
 
-service GroupService {
-  rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse);
-  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse);
+message UpdateUsersInGroupRequest {
+  string group_id = 1;
+  repeated string user_ids = 2; // All the users in the group. This will replace the existing users
 }
+
+message UpdateUsersInGroupResponse {}
