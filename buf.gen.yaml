@@ -9,6 +9,11 @@ plugins:
     opt:
       - paths=source_relative
       - require_unimplemented_servers=true
+  - remote: buf.build/grpc-ecosystem/gateway:v2.21.0
+    out: gen/pkg
+    opt:
+      - paths=source_relative
+      - generate_unbound_methods=true
   - remote: buf.build/protocolbuffers/dart:v21.1.2
     out: gen/dart/lib
     include_imports: true
