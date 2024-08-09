@@ -13,7 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../../google/protobuf/timestamp.pb.dart' as $2;
+import '../../../google/protobuf/timestamp.pb.dart' as $3;
 
 class GroupUser extends $pb.GeneratedMessage {
   factory GroupUser({
@@ -112,8 +112,8 @@ class GroupUser extends $pb.GeneratedMessage {
 class Group extends $pb.GeneratedMessage {
   factory Group({
     $core.String? id,
-    $2.Timestamp? createdAt,
-    $2.Timestamp? updatedAt,
+    $3.Timestamp? createdAt,
+    $3.Timestamp? updatedAt,
     $core.String? name,
     $core.Iterable<GroupUser>? user,
   }) {
@@ -149,10 +149,10 @@ class Group extends $pb.GeneratedMessage {
           _omitMessageNames ? '' : 'fairnsquare.transactions.v1alpha1'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
-    ..aOM<$2.Timestamp>(2, _omitFieldNames ? '' : 'createdAt',
-        subBuilder: $2.Timestamp.create)
-    ..aOM<$2.Timestamp>(3, _omitFieldNames ? '' : 'updatedAt',
-        subBuilder: $2.Timestamp.create)
+    ..aOM<$3.Timestamp>(2, _omitFieldNames ? '' : 'createdAt',
+        subBuilder: $3.Timestamp.create)
+    ..aOM<$3.Timestamp>(3, _omitFieldNames ? '' : 'updatedAt',
+        subBuilder: $3.Timestamp.create)
     ..aOS(4, _omitFieldNames ? '' : 'name')
     ..pc<GroupUser>(5, _omitFieldNames ? '' : 'user', $pb.PbFieldType.PM,
         subBuilder: GroupUser.create)
@@ -192,9 +192,9 @@ class Group extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $2.Timestamp get createdAt => $_getN(1);
+  $3.Timestamp get createdAt => $_getN(1);
   @$pb.TagNumber(2)
-  set createdAt($2.Timestamp v) {
+  set createdAt($3.Timestamp v) {
     setField(2, v);
   }
 
@@ -203,12 +203,12 @@ class Group extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCreatedAt() => clearField(2);
   @$pb.TagNumber(2)
-  $2.Timestamp ensureCreatedAt() => $_ensure(1);
+  $3.Timestamp ensureCreatedAt() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $2.Timestamp get updatedAt => $_getN(2);
+  $3.Timestamp get updatedAt => $_getN(2);
   @$pb.TagNumber(3)
-  set updatedAt($2.Timestamp v) {
+  set updatedAt($3.Timestamp v) {
     setField(3, v);
   }
 
@@ -217,7 +217,7 @@ class Group extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearUpdatedAt() => clearField(3);
   @$pb.TagNumber(3)
-  $2.Timestamp ensureUpdatedAt() => $_ensure(2);
+  $3.Timestamp ensureUpdatedAt() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.String get name => $_getSZ(3);

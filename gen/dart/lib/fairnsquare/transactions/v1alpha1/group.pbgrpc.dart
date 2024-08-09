@@ -15,50 +15,50 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'group.pb.dart' as $0;
+import 'group.pb.dart' as $1;
 
 export 'group.pb.dart';
 
 @$pb.GrpcServiceName('fairnsquare.transactions.v1alpha1.GroupService')
 class GroupServiceClient extends $grpc.Client {
   static final _$createGroup =
-      $grpc.ClientMethod<$0.CreateGroupRequest, $0.CreateGroupResponse>(
+      $grpc.ClientMethod<$1.CreateGroupRequest, $1.CreateGroupResponse>(
           '/fairnsquare.transactions.v1alpha1.GroupService/CreateGroup',
-          ($0.CreateGroupRequest value) => value.writeToBuffer(),
+          ($1.CreateGroupRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.CreateGroupResponse.fromBuffer(value));
+              $1.CreateGroupResponse.fromBuffer(value));
   static final _$listGroups =
-      $grpc.ClientMethod<$0.ListGroupsRequest, $0.ListGroupsResponse>(
+      $grpc.ClientMethod<$1.ListGroupsRequest, $1.ListGroupsResponse>(
           '/fairnsquare.transactions.v1alpha1.GroupService/ListGroups',
-          ($0.ListGroupsRequest value) => value.writeToBuffer(),
+          ($1.ListGroupsRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.ListGroupsResponse.fromBuffer(value));
+              $1.ListGroupsResponse.fromBuffer(value));
   static final _$updateUsersInGroup = $grpc.ClientMethod<
-          $0.UpdateUsersInGroupRequest, $0.UpdateUsersInGroupResponse>(
+          $1.UpdateUsersInGroupRequest, $1.UpdateUsersInGroupResponse>(
       '/fairnsquare.transactions.v1alpha1.GroupService/UpdateUsersInGroup',
-      ($0.UpdateUsersInGroupRequest value) => value.writeToBuffer(),
+      ($1.UpdateUsersInGroupRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
-          $0.UpdateUsersInGroupResponse.fromBuffer(value));
+          $1.UpdateUsersInGroupResponse.fromBuffer(value));
 
   GroupServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
 
-  $grpc.ResponseFuture<$0.CreateGroupResponse> createGroup(
-      $0.CreateGroupRequest request,
+  $grpc.ResponseFuture<$1.CreateGroupResponse> createGroup(
+      $1.CreateGroupRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createGroup, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.ListGroupsResponse> listGroups(
-      $0.ListGroupsRequest request,
+  $grpc.ResponseFuture<$1.ListGroupsResponse> listGroups(
+      $1.ListGroupsRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listGroups, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.UpdateUsersInGroupResponse> updateUsersInGroup(
-      $0.UpdateUsersInGroupRequest request,
+  $grpc.ResponseFuture<$1.UpdateUsersInGroupResponse> updateUsersInGroup(
+      $1.UpdateUsersInGroupRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateUsersInGroup, request, options: options);
   }
@@ -70,52 +70,52 @@ abstract class GroupServiceBase extends $grpc.Service {
 
   GroupServiceBase() {
     $addMethod(
-        $grpc.ServiceMethod<$0.CreateGroupRequest, $0.CreateGroupResponse>(
+        $grpc.ServiceMethod<$1.CreateGroupRequest, $1.CreateGroupResponse>(
             'CreateGroup',
             createGroup_Pre,
             false,
             false,
             ($core.List<$core.int> value) =>
-                $0.CreateGroupRequest.fromBuffer(value),
-            ($0.CreateGroupResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.ListGroupsRequest, $0.ListGroupsResponse>(
+                $1.CreateGroupRequest.fromBuffer(value),
+            ($1.CreateGroupResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.ListGroupsRequest, $1.ListGroupsResponse>(
         'ListGroups',
         listGroups_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.ListGroupsRequest.fromBuffer(value),
-        ($0.ListGroupsResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UpdateUsersInGroupRequest,
-            $0.UpdateUsersInGroupResponse>(
+        ($core.List<$core.int> value) => $1.ListGroupsRequest.fromBuffer(value),
+        ($1.ListGroupsResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.UpdateUsersInGroupRequest,
+            $1.UpdateUsersInGroupResponse>(
         'UpdateUsersInGroup',
         updateUsersInGroup_Pre,
         false,
         false,
         ($core.List<$core.int> value) =>
-            $0.UpdateUsersInGroupRequest.fromBuffer(value),
-        ($0.UpdateUsersInGroupResponse value) => value.writeToBuffer()));
+            $1.UpdateUsersInGroupRequest.fromBuffer(value),
+        ($1.UpdateUsersInGroupResponse value) => value.writeToBuffer()));
   }
 
-  $async.Future<$0.CreateGroupResponse> createGroup_Pre($grpc.ServiceCall call,
-      $async.Future<$0.CreateGroupRequest> request) async {
+  $async.Future<$1.CreateGroupResponse> createGroup_Pre($grpc.ServiceCall call,
+      $async.Future<$1.CreateGroupRequest> request) async {
     return createGroup(call, await request);
   }
 
-  $async.Future<$0.ListGroupsResponse> listGroups_Pre($grpc.ServiceCall call,
-      $async.Future<$0.ListGroupsRequest> request) async {
+  $async.Future<$1.ListGroupsResponse> listGroups_Pre($grpc.ServiceCall call,
+      $async.Future<$1.ListGroupsRequest> request) async {
     return listGroups(call, await request);
   }
 
-  $async.Future<$0.UpdateUsersInGroupResponse> updateUsersInGroup_Pre(
+  $async.Future<$1.UpdateUsersInGroupResponse> updateUsersInGroup_Pre(
       $grpc.ServiceCall call,
-      $async.Future<$0.UpdateUsersInGroupRequest> request) async {
+      $async.Future<$1.UpdateUsersInGroupRequest> request) async {
     return updateUsersInGroup(call, await request);
   }
 
-  $async.Future<$0.CreateGroupResponse> createGroup(
-      $grpc.ServiceCall call, $0.CreateGroupRequest request);
-  $async.Future<$0.ListGroupsResponse> listGroups(
-      $grpc.ServiceCall call, $0.ListGroupsRequest request);
-  $async.Future<$0.UpdateUsersInGroupResponse> updateUsersInGroup(
-      $grpc.ServiceCall call, $0.UpdateUsersInGroupRequest request);
+  $async.Future<$1.CreateGroupResponse> createGroup(
+      $grpc.ServiceCall call, $1.CreateGroupRequest request);
+  $async.Future<$1.ListGroupsResponse> listGroups(
+      $grpc.ServiceCall call, $1.ListGroupsRequest request);
+  $async.Future<$1.UpdateUsersInGroupResponse> updateUsersInGroup(
+      $grpc.ServiceCall call, $1.UpdateUsersInGroupRequest request);
 }

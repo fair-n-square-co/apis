@@ -2,14 +2,27 @@ syntax = "proto3";
 
 package fairnsquare.transactions.v1alpha1;
 
+import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/fair-n-square-co/pkg/transactions/v1alpha1";
 
 service GroupService {
-  rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse);
-  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse);
-  rpc UpdateUsersInGroup(UpdateUsersInGroupRequest) returns (UpdateUsersInGroupResponse);
+  rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse) {
+    option (google.api.http) = {
+      post: "/v1/groups"
+      body: "*"
+    };
+  }
+  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse) {
+    option (google.api.http) = {get: "/v1/groups"};
+  }
+  rpc UpdateUsersInGroup(UpdateUsersInGroupRequest) returns (UpdateUsersInGroupResponse) {
+    option (google.api.http) = {
+      put: "/v1/groups/{group_id}/users"
+      body: "*"
+    };
+  }
 }
 
 message GroupUser {
