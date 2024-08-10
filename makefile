@@ -2,6 +2,9 @@
 lint:
 	buf lint
 
+deps/lock:
+	buf dep update
+
 .PHONY: build
 build:
 	buf build

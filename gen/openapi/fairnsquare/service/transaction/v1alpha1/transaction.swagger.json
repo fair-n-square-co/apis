@@ -1,0 +1,261 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "fairnsquare/service/transaction/v1alpha1/transaction.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "TransactionService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/transactions": {
+      "get": {
+        "operationId": "TransactionService_ListTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1ListTransactionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TransactionService"
+        ]
+      },
+      "post": {
+        "operationId": "TransactionService_CreateTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1CreateTransactionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1CreateTransactionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TransactionService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "typeMoney": {
+      "type": "object",
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "The three-letter currency code defined in ISO 4217."
+        },
+        "units": {
+          "type": "string",
+          "format": "int64",
+          "description": "The whole units of the amount.\nFor example if `currencyCode` is `\"USD\"`, then 1 unit is one US dollar."
+        },
+        "nanos": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of nano (10^-9) units of the amount.\nThe value must be between -999,999,999 and +999,999,999 inclusive.\nIf `units` is positive, `nanos` must be positive or zero.\nIf `units` is zero, `nanos` can be positive, zero, or negative.\nIf `units` is negative, `nanos` must be negative or zero.\nFor example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000."
+        }
+      },
+      "description": "Represents an amount of money with its currency type."
+    },
+    "v1alpha1CreateTransactionRequest": {
+      "type": "object",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/v1alpha1Transaction"
+        }
+      }
+    },
+    "v1alpha1CreateTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1ListTransactionsResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1alpha1Transaction"
+          }
+        }
+      }
+    },
+    "v1alpha1Transaction": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "amount": {
+          "$ref": "#/definitions/typeMoney"
+        },
+        "type": {
+          "$ref": "#/definitions/v1alpha1TransactionType"
+        },
+        "userShares": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1alpha1UserShares"
+          }
+        },
+        "groupId": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/v1alpha1TransactionMetadata"
+        }
+      }
+    },
+    "v1alpha1TransactionMetadata": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/v1alpha1User"
+        },
+        "lastUpdatedBy": {
+          "$ref": "#/definitions/v1alpha1User"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1alpha1TransactionType": {
+      "type": "string",
+      "enum": [
+        "TRANSACTION_TYPE_UNSPECIFIED",
+        "TRANSACTION_TYPE_PAYMENT",
+        "TRANSACTION_TYPE_SETTLEMENT"
+      ],
+      "default": "TRANSACTION_TYPE_UNSPECIFIED"
+    },
+    "v1alpha1User": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1UserShares": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "amount is always positive.\nWe use the context to determine if the user is a payer or a payee."
+        },
+        "paidShare": {
+          "$ref": "#/definitions/typeMoney"
+        },
+        "owedShare": {
+          "$ref": "#/definitions/typeMoney"
+        },
+        "user": {
+          "$ref": "#/definitions/v1alpha1User",
+          "title": "Not required for requests"
+        }
+      }
+    }
+  }
+}
