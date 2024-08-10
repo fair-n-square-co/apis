@@ -135,23 +135,8 @@
     "v1alpha1CreateTransactionRequest": {
       "type": "object",
       "properties": {
-        "description": {
-          "type": "string"
-        },
-        "amount": {
-          "$ref": "#/definitions/typeMoney"
-        },
-        "type": {
-          "$ref": "#/definitions/v1alpha1TransactionType"
-        },
-        "groupId": {
-          "type": "string"
-        },
-        "payers": {
-          "$ref": "#/definitions/v1alpha1Payers"
-        },
-        "payees": {
-          "$ref": "#/definitions/v1alpha1Payees"
+        "transaction": {
+          "$ref": "#/definitions/v1alpha1Transaction"
         }
       }
     },
@@ -165,29 +150,62 @@
     },
     "v1alpha1ListTransactionsResponse": {
       "type": "object",
-      "title": "repeated Transaction transactions = 1;"
-    },
-    "v1alpha1Payees": {
-      "type": "object",
       "properties": {
-        "userAmounts": {
+        "transactions": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1alpha1UserAmount"
+            "$ref": "#/definitions/v1alpha1Transaction"
           }
         }
       }
     },
-    "v1alpha1Payers": {
+    "v1alpha1Transaction": {
       "type": "object",
       "properties": {
-        "userAmounts": {
+        "description": {
+          "type": "string"
+        },
+        "amount": {
+          "$ref": "#/definitions/typeMoney"
+        },
+        "type": {
+          "$ref": "#/definitions/v1alpha1TransactionType"
+        },
+        "userShares": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1alpha1UserAmount"
+            "$ref": "#/definitions/v1alpha1UserShares"
           }
+        },
+        "groupId": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/v1alpha1TransactionMetadata"
+        }
+      }
+    },
+    "v1alpha1TransactionMetadata": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/v1alpha1User"
+        },
+        "lastUpdatedBy": {
+          "$ref": "#/definitions/v1alpha1User"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -200,15 +218,42 @@
       ],
       "default": "TRANSACTION_TYPE_UNSPECIFIED"
     },
-    "v1alpha1UserAmount": {
+    "v1alpha1User": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1UserShares": {
       "type": "object",
       "properties": {
         "userId": {
           "type": "string",
           "description": "amount is always positive.\nWe use the context to determine if the user is a payer or a payee."
         },
-        "amount": {
+        "paidShare": {
           "$ref": "#/definitions/typeMoney"
+        },
+        "owedShare": {
+          "$ref": "#/definitions/typeMoney"
+        },
+        "user": {
+          "$ref": "#/definitions/v1alpha1User",
+          "title": "Not required for requests"
         }
       }
     }

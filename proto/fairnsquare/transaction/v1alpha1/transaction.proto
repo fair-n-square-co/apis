@@ -2,8 +2,9 @@ syntax = "proto3";
 
 package fairnsquare.transaction.v1alpha1;
 
+import "fairnsquare/user/v1alpha1/users.proto";
 import "google/api/annotations.proto";
-// import "google/protobuf/timestamp.proto";
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 import "google/type/money.proto";
 
@@ -22,45 +23,17 @@ service TransactionService {
   }
 }
 
-// Create Transaction
+// Create Transaction API
 
 message CreateTransactionRequest {
-  string description = 1;
-  google.type.Money amount = 2;
-  TransactionType type = 3;
-  google.protobuf.StringValue group_id = 4;
-  Payers payers = 5;
-  Payees payees = 6;
+  Transaction transaction = 1;
 }
 
 message CreateTransactionResponse {
   string transaction_id = 1;
 }
 
-enum TransactionType {
-  TRANSACTION_TYPE_UNSPECIFIED = 0;
-  TRANSACTION_TYPE_PAYMENT = 1;
-  TRANSACTION_TYPE_SETTLEMENT = 2;
-}
-
-message Payers {
-  repeated UserAmount user_amounts = 1;
-}
-
-message Payees {
-  repeated UserAmount user_amounts = 1;
-}
-
-message UserAmount {
-  /*
-   * amount is always positive.
-   * We use the context to determine if the user is a payer or a payee.
-   */
-  string user_id = 1;
-  google.type.Money amount = 2;
-}
-
-// List Transactions
+// List Transactions API
 
 message ListTransactionsRequest {
   oneof filter {
@@ -70,22 +43,42 @@ message ListTransactionsRequest {
 }
 
 message ListTransactionsResponse {
-  // repeated Transaction transactions = 1;
+  repeated Transaction transactions = 1;
 }
 
-// ============
+// Types
 
-// message Transaction {
-//   string id = 1;
-//   string last_updated_by = 5;
-//   string description = 6;
-//   google.type.Money amount = 7; // The amount of the transaction (should sum up to all the ledgers)
-//   TransactionType type = 8;
-//   repeated Ledger ledgers = 9;
-// }
+message TransactionMetadata {
+  string transaction_id = 1;
+  fairnsquare.user.v1alpha1.User created_by = 2;
+  fairnsquare.user.v1alpha1.User last_updated_by = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
 
-// enum LedgerDirection {
-//   LEDGER_DIRECTION_UNSPECIFIED = 0;
-//   LEDGER_DIRECTION_PAYER = 1;
-//   LEDGER_DIRECTION_PAYEE = 2;
-// }
+message Transaction {
+  string description = 1;
+  google.type.Money amount = 2;
+  TransactionType type = 3;
+  repeated UserShares user_shares = 4;
+  google.protobuf.StringValue group_id = 5;
+  TransactionMetadata metadata = 6;
+}
+
+enum TransactionType {
+  TRANSACTION_TYPE_UNSPECIFIED = 0;
+  TRANSACTION_TYPE_PAYMENT = 1;
+  TRANSACTION_TYPE_SETTLEMENT = 2;
+}
+
+message UserShares {
+  /*
+   * amount is always positive.
+   * We use the context to determine if the user is a payer or a payee.
+   */
+  string user_id = 1;
+  google.type.Money paid_share = 2;
+  google.type.Money owed_share = 3;
+  // Not required for requests
+  fairnsquare.user.v1alpha1.User user = 4;
+}
