@@ -7,7 +7,7 @@
 package userpb
 
 import (
-	v1alpha1 "github.com/fair-n-square-co/gen/pkg/fairnsquare/type/user/v1alpha1"
+	v1alpha1 "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/type/user/v1alpha1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
