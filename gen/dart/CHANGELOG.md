@@ -45,6 +45,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add 4 proto calls - GetUser, CreateUser, IsUserAvailable, UpdateUsersInGroup
 - Removed unused proto messages
 
+## [0.0.1-alpha.7] - 2024-08-10
+
+### Fixed
+
+- Refactored hierarchy of the project
+- Added transaction APIs
+
 <!-- template
 ## [Version] - Date
 
