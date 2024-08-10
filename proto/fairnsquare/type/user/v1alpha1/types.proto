@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package fairnsquare.type.user.v1alpha1;
+
+option go_package = "github.com/fair-n-square-co/gen/pkg/fairnsquare/type/user/v1alpha1;usertypepb";
+
+message User {
+  string user_id = 1;
+  string username = 2;
+  string email = 3;
+  string first_name = 4;
+  string last_name = 5;
+}
