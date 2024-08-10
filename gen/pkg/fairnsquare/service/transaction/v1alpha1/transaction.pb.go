@@ -7,7 +7,7 @@
 package transactionpb
 
 import (
-	v1alpha1 "github.com/fair-n-square-co/gen/pkg/fairnsquare/type/user/v1alpha1"
+	v1alpha1 "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/type/user/v1alpha1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	money "google.golang.org/genproto/googleapis/type/money"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
