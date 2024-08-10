@@ -1,12 +1,22 @@
 syntax = "proto3";
 
-package fairnsquare.transactions.v1alpha1;
+package fairnsquare.user.v1alpha1;
 
-option go_package = "github.com/fair-n-square-co/pkg/transactions/v1alpha1";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/fair-n-square-co/pkg/user/v1alpha1";
 
 service UserService {
-  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
-  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post: "/v1/users"
+      body: "*"
+    };
+  }
+
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    option (google.api.http) = {get: "/v1/users/{username}"};
+  }
   rpc IsUsernameAvailable(IsUsernameAvailableRequest) returns (IsUsernameAvailableResponse);
 }
 

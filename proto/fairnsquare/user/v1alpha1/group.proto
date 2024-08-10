@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package fairnsquare.transactions.v1alpha1;
+package fairnsquare.user.v1alpha1;
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/fair-n-square-co/pkg/transactions/v1alpha1";
+option go_package = "github.com/fair-n-square-co/pkg/user/v1alpha1";
 
 service GroupService {
   rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse) {

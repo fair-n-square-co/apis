@@ -20,5 +20,8 @@ plugins:
     include_wkt: true
     opt:
       - grpc
+  # OpenAPI spec
+  - remote: buf.build/grpc-ecosystem/openapiv2:v2.21.0
+    out: gen/openapi
 inputs:
   - directory: proto

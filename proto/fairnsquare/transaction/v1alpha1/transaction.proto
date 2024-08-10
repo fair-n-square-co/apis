@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package fairnsquare.transaction.v1alpha1;
+
+import "google/api/annotations.proto";
+// import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "google/type/money.proto";
+
+option go_package = "github.com/fair-n-square-co/pkg/transaction/v1alpha1";
+
+service TransactionService {
+  rpc CreateTransaction(CreateTransactionRequest) returns (CreateTransactionResponse) {
+    option (google.api.http) = {
+      post: "/v1/transactions"
+      body: "*"
+    };
+  }
+
+  rpc ListTransactions(ListTransactionsRequest) returns (ListTransactionsResponse) {
+    option (google.api.http) = {get: "/v1/transactions"};
+  }
+}
+
+// Create Transaction
+
+message CreateTransactionRequest {
+  string description = 1;
+  google.type.Money amount = 2;
+  TransactionType type = 3;
+  google.protobuf.StringValue group_id = 4;
+  Payers payers = 5;
+  Payees payees = 6;
+}
+
+message CreateTransactionResponse {
+  string transaction_id = 1;
+}
+
+enum TransactionType {
+  TRANSACTION_TYPE_UNSPECIFIED = 0;
+  TRANSACTION_TYPE_PAYMENT = 1;
+  TRANSACTION_TYPE_SETTLEMENT = 2;
+}
+
+message Payers {
+  repeated UserAmount user_amounts = 1;
+}
+
+message Payees {
+  repeated UserAmount user_amounts = 1;
+}
+
+message UserAmount {
+  /*
+   * amount is always positive.
+   * We use the context to determine if the user is a payer or a payee.
+   */
+  string user_id = 1;
+  google.type.Money amount = 2;
+}
+
+// List Transactions
+
+message ListTransactionsRequest {
+  oneof filter {
+    string user_id = 1;
+    string group_id = 2;
+  }
+}
+
+message ListTransactionsResponse {
+  // repeated Transaction transactions = 1;
+}
+
+// ============
+
+// message Transaction {
+//   string id = 1;
+//   string last_updated_by = 5;
+//   string description = 6;
+//   google.type.Money amount = 7; // The amount of the transaction (should sum up to all the ledgers)
+//   TransactionType type = 8;
+//   repeated Ledger ledgers = 9;
+// }
+
+// enum LedgerDirection {
+//   LEDGER_DIRECTION_UNSPECIFIED = 0;
+//   LEDGER_DIRECTION_PAYER = 1;
+//   LEDGER_DIRECTION_PAYEE = 2;
+// }
