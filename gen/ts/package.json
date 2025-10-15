@@ -1,0 +1,26 @@
+{
+  "name": "ts",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "eslint": "^9.37.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "protobuf",
+    "grpc",
+    "connect-rpc",
+    "fairnsquare"
+  ],
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.9.0"
+  }
+}

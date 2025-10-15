@@ -1,25 +1,31 @@
 version: v2
 plugins:
-  - remote: buf.build/protocolbuffers/go:v1.33.0
+  - remote: buf.build/protocolbuffers/go:v1.36.10
     out: gen/pkg
     opt: paths=source_relative
-  - remote: buf.build/grpc/go:v1.3.0
+  - remote: buf.build/grpc/go:v1.5.1
     revision: 2
     out: gen/pkg
     opt:
       - paths=source_relative
       - require_unimplemented_servers=true
+  - remote: buf.build/connectrpc/go:v1.19.1
+    out: gen/pkg
+    opt:
+      - paths=source_relative
   - remote: buf.build/grpc-ecosystem/gateway:v2.21.0
     out: gen/pkg
     opt:
       - paths=source_relative
       - generate_unbound_methods=true
-  - remote: buf.build/protocolbuffers/dart:v21.1.2
-    out: gen/dart/lib
+  # TypeScript - Protobuf ES
+  - remote: buf.build/bufbuild/es:v2.9.0
+    out: gen/ts/src
+    opt:
+      - target=ts
+      - import_extension=none
     include_imports: true
     include_wkt: true
-    opt:
-      - grpc
   # OpenAPI spec
   - remote: buf.build/grpc-ecosystem/openapiv2:v2.21.0
     out: gen/openapi
