@@ -3,10 +3,8 @@
 ```bash
 brew install buf
 brew install go
-
+brew install bun  # For TypeScript code generation
 ```
-
-Install flutter using: https://docs.flutter.dev/get-started/install
 
 ## Commands
 
@@ -16,17 +14,15 @@ Run buf linter to lint proto files
 ### `make build`
 Run buf build to build protobuf files into a buf image
 
-### `make gen/dart`
-Generate dart code for proto files
-
-### `make gen/go`
-Generate go code for proto files
+### `make gen/ts`
+Generate TypeScript code for proto files with Connect-RPC support
 
 ### `make gen`
-Generate go and dart code for proto files
+Generate Go and TypeScript code for proto files
 
-### `make dart/publish`
-Publish dart code to pub.dev - need permission to publish. Contact collaborators.
-In order to publish `gen/dart` folder, you need to:
-1. update the version in `pubspec.yaml`.
-2. update `CHANGELOG.md` with the new version and changes.
+## Generated Code
+
+### TypeScript
+TypeScript types and Connect-RPC clients are generated in `gen/ts/`. See `gen/ts/README.md` for usage instructions.
+
+**Versioning:** Uses semantic versioning (semver) - increment version in `gen/ts/package.json` following semver conventions (MAJOR.MINOR.PATCH).

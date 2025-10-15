@@ -12,9 +12,10 @@ build:
 .PHONY: gen
 gen: build lint
 	buf generate
-	dart format gen/dart/
+	cd gen/ts && bun install && bun run typecheck
 
-.PHONY: dart/publish
-dart/publish: build gen/dart
-	dart pub publish -C gen/dart
+.PHONY: gen/ts
+gen/ts: build lint
+	buf generate
+	cd gen/ts && bun install && bun run typecheck
 

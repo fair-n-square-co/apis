@@ -1,12 +1,13 @@
 version: v2
 modules:
   - path: proto
+    name: buf.build/fairnsquare/apis
     breaking:
       use:
         - FILE
     lint:
       use:
-        - DEFAULT
+        - STANDARD
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/protocolbuffers/wellknowntypes
