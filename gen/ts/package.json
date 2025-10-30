@@ -1,5 +1,5 @@
 {
-  "name": "ts",
+  "name": "@fairnsquare/apis",
   "module": "index.ts",
   "type": "module",
   "private": true,
