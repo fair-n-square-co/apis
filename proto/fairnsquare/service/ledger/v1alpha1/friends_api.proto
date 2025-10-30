@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package fairnsquare.service.ledger.v1alpha1;
+
+import "fairnsquare/service/ledger/v1alpha1/friend_types.proto";
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/ledger/v1alpha1;ledgerpb";
+
+// FriendService defines the API for managing a person's friends. The user is identified from the JWT token.
+service FriendService {
+  rpc ManageFriend(ManageFriendRequest) returns (ManageFriendResponse) {}
+  rpc ListFriends(ListFriendsRequest) returns (ListFriendsResponse) {}
+}
+
+message AddFriendRequest {
+  // This can be interpreted in following ways:
+  // 1. If a friend request from a persona/request_id to the current user exists, accept that request.
+  // 2. If the friend_persona_id is provided and there is no request from that persona, a new friend request is created.
+  oneof request {
+    string friend_request_id = 1;
+    string friend_persona_id = 2;
+  }
+}
+
+message DenyFriendRequest {
+  // If there is a friend request from the specified persona, deny it and change the status to denied.
+  // Note: we only need the persona id to deny the request, not the friend request id. There could be scenario where
+  // a user can just block another user. The upstream system should resolve the persona and send their persona id.
+  string friend_persona_id = 1;
+}
+
+// ManageFriendRequest is to create a new friendship request.
+message ManageFriendRequest {
+  oneof request {
+    AddFriendRequest friend_request = 1;
+    DenyFriendRequest deny_friend_request = 2;
+  }
+}
+
+message ManageFriendResponse {
+  Friend friendship = 1;
+}
+
+message ListFriendsRequest {}
+
+message ListFriendsResponse {
+  repeated Friend friendships = 1;
+}

@@ -13,11 +13,6 @@ plugins:
     out: gen/pkg
     opt:
       - paths=source_relative
-  - remote: buf.build/grpc-ecosystem/gateway:v2.21.0
-    out: gen/pkg
-    opt:
-      - paths=source_relative
-      - generate_unbound_methods=true
   # TypeScript - Protobuf ES
   - remote: buf.build/bufbuild/es:v2.9.0
     out: gen/ts/src
@@ -26,8 +21,5 @@ plugins:
       - import_extension=none
     include_imports: true
     include_wkt: true
-  # OpenAPI spec
-  - remote: buf.build/grpc-ecosystem/openapiv2:v2.21.0
-    out: gen/openapi
 inputs:
   - directory: proto
