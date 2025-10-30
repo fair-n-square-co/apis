@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package fairnsquare.service.ledger.v1alpha1;
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/ledger/v1alpha1;ledgerpb";
+
+enum FriendshipStatus {
+  FRIENDSHIP_STATUS_UNSPECIFIED = 0;
+  FRIENDSHIP_STATUS_PENDING = 1;
+  FRIENDSHIP_STATUS_ACCEPTED = 2;
+  FRIENDSHIP_STATUS_BLOCKED = 3;
+}
+message Friend {
+  string id = 1;
+  string friend_id = 2;
+  FriendshipStatus status = 3;
+}
