@@ -1,0 +1,120 @@
+name: Release gen/pkg
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.2.3). Leave empty to auto-increment minor version.'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Buf
+        uses: bufbuild/buf-setup-action@v1
+
+      - name: Get latest release tag
+        id: get_latest_tag
+        run: |
+          # Get the latest tag for gen/pkg/v*
+          LATEST_TAG=$(git tag -l 'gen/pkg/v*' | sort -V | tail -1)
+          
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No existing tags found, starting with v0.1.0"
+            LATEST_VERSION="v0.0.0"
+            LATEST_TAG="gen/pkg/v0.0.0"
+          else
+            LATEST_VERSION="${LATEST_TAG#gen/pkg/}"
+          fi
+          
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+          echo "Latest tag: $LATEST_TAG"
+          echo "Latest version: $LATEST_VERSION"
+
+      - name: Determine next version
+        id: next_version
+        run: |
+          INPUT_VERSION="${{ github.event.inputs.version }}"
+          LATEST_VERSION="${{ steps.get_latest_tag.outputs.latest_version }}"
+          
+          if [ -n "$INPUT_VERSION" ]; then
+            # Use provided version
+            NEXT_VERSION="$INPUT_VERSION"
+            # Remove 'v' prefix if present for parsing
+            VERSION_NUMBER="${NEXT_VERSION#v}"
+          else
+            # Auto-increment minor version
+            # Remove 'v' prefix
+            VERSION_NUMBER="${LATEST_VERSION#v}"
+            
+            # Split version into major.minor.patch
+            MAJOR=$(echo $VERSION_NUMBER | cut -d. -f1)
+            MINOR=$(echo $VERSION_NUMBER | cut -d. -f2)
+            PATCH=$(echo $VERSION_NUMBER | cut -d. -f3)
+            
+            # Increment minor version and reset patch to 0
+            MINOR=$((MINOR + 1))
+            PATCH=0
+            
+            VERSION_NUMBER="${MAJOR}.${MINOR}.${PATCH}"
+            NEXT_VERSION="v${VERSION_NUMBER}"
+          fi
+          
+          NEXT_TAG="gen/pkg/${NEXT_VERSION}"
+          
+          echo "next_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          echo "next_tag=$NEXT_TAG" >> $GITHUB_OUTPUT
+          echo "Next version: $NEXT_VERSION"
+          echo "Next tag: $NEXT_TAG"
+
+      - name: Check if tag already exists
+        run: |
+          NEXT_TAG="${{ steps.next_version.outputs.next_tag }}"
+          if git tag -l | grep -q "^${NEXT_TAG}$"; then
+            echo "Error: Tag $NEXT_TAG already exists"
+            exit 1
+          fi
+
+      - name: Buf breaking change check
+        uses: bufbuild/buf-breaking-action@v1
+        with:
+          against: "https://github.com/${{ github.repository }}.git#tag=${{ steps.get_latest_tag.outputs.latest_tag }}"
+
+      - name: Create and push tag
+        run: |
+          NEXT_TAG="${{ steps.next_version.outputs.next_tag }}"
+          NEXT_VERSION="${{ steps.next_version.outputs.next_version }}"
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git tag -a "$NEXT_TAG" -m "Release $NEXT_VERSION for gen/pkg"
+          git push origin "$NEXT_TAG"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.next_version.outputs.next_tag }}
+          release_name: gen/pkg ${{ steps.next_version.outputs.next_version }}
+          body: |
+            Release ${{ steps.next_version.outputs.next_version }} of gen/pkg
+            
+            Previous version: ${{ steps.get_latest_tag.outputs.latest_version }}
+            
+            This release includes Go package bindings generated from the protobuf definitions.
+          draft: false
+          prerelease: false
