@@ -33,15 +33,19 @@ jobs:
           if [ -z "$LATEST_TAG" ]; then
             echo "No existing tags found, starting with v0.1.0"
             LATEST_VERSION="v0.0.0"
-            LATEST_TAG="gen/pkg/v0.0.0"
+            LATEST_TAG=""
+            HAS_PREVIOUS_RELEASE="false"
           else
             LATEST_VERSION="${LATEST_TAG#gen/pkg/}"
+            HAS_PREVIOUS_RELEASE="true"
           fi
           
           echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
           echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+          echo "has_previous_release=$HAS_PREVIOUS_RELEASE" >> $GITHUB_OUTPUT
           echo "Latest tag: $LATEST_TAG"
           echo "Latest version: $LATEST_VERSION"
+          echo "Has previous release: $HAS_PREVIOUS_RELEASE"
 
       - name: Determine next version
         id: next_version
@@ -88,6 +92,7 @@ jobs:
           fi
 
       - name: Buf breaking change check
+        if: steps.get_latest_tag.outputs.has_previous_release == 'true'
         uses: bufbuild/buf-breaking-action@v1
         with:
           against: "https://github.com/${{ github.repository }}.git#tag=${{ steps.get_latest_tag.outputs.latest_tag }}"
@@ -104,17 +109,13 @@ jobs:
           git push origin "$NEXT_TAG"
 
       - name: Create GitHub Release
-        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.next_version.outputs.next_tag }}
-          release_name: gen/pkg ${{ steps.next_version.outputs.next_version }}
-          body: |
-            Release ${{ steps.next_version.outputs.next_version }} of gen/pkg
-            
-            Previous version: ${{ steps.get_latest_tag.outputs.latest_version }}
-            
-            This release includes Go package bindings generated from the protobuf definitions.
-          draft: false
-          prerelease: false
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NEXT_TAG="${{ steps.next_version.outputs.next_tag }}"
+          NEXT_VERSION="${{ steps.next_version.outputs.next_version }}"
+          LATEST_VERSION="${{ steps.get_latest_tag.outputs.latest_version }}"
+          
+          gh release create "$NEXT_TAG" \
+            --title "gen/pkg $NEXT_VERSION" \
+            --notes "Release $NEXT_VERSION of gen/pkg. Previous version: $LATEST_VERSION. This release includes Go package bindings generated from the protobuf definitions."
