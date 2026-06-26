@@ -91,11 +91,18 @@ jobs:
             exit 1
           fi
 
+      - name: Checkout previous release
+        if: steps.get_latest_tag.outputs.has_previous_release == 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ steps.get_latest_tag.outputs.latest_tag }}
+          path: prev
+
       - name: Buf breaking change check
         if: steps.get_latest_tag.outputs.has_previous_release == 'true'
-        uses: bufbuild/buf-breaking-action@c57b3d842a5c3f3b454756ef65305a50a587c5ba # v1.1.4
-        with:
-          against: "https://github.com/${{ github.repository }}.git#tag=${{ steps.get_latest_tag.outputs.latest_tag }}"
+        run: |
+          buf build prev --output "${{ runner.temp }}/prev.binpb"
+          buf breaking --against "${{ runner.temp }}/prev.binpb"
 
       - name: Create and push tag
         run: |
