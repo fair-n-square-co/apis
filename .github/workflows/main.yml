@@ -13,17 +13,17 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: bufbuild/buf-setup-action@v1.50.0
-      - uses: bufbuild/buf-lint-action@v1.1.1
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: bufbuild/buf-setup-action@a47c93e0b1648d5651a065437926377d060baa99 # v1.50.0
+      - uses: bufbuild/buf-lint-action@06f9dd823d873146471cfaaf108a993fe00e5325 # v1.1.1
   breaking:
     name: Main branch non-breaking change check
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'pull_request' }}
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: bufbuild/buf-setup-action@v1.50.0
-      - uses: bufbuild/buf-breaking-action@v1.1.4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: bufbuild/buf-setup-action@a47c93e0b1648d5651a065437926377d060baa99 # v1.50.0
+      - uses: bufbuild/buf-breaking-action@c57b3d842a5c3f3b454756ef65305a50a587c5ba # v1.1.4
         with:
           against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main,ref=HEAD~1"
 
@@ -32,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: bufbuild/buf-setup-action@v1.50.0
-      - uses: bufbuild/buf-breaking-action@v1.1.4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: bufbuild/buf-setup-action@a47c93e0b1648d5651a065437926377d060baa99 # v1.50.0
+      - uses: bufbuild/buf-breaking-action@c57b3d842a5c3f3b454756ef65305a50a587c5ba # v1.1.4
         with:
           against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main,ref=HEAD"
 
@@ -42,9 +42,9 @@ jobs:
     name: Generated code up to date
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: bufbuild/buf-setup-action@v1.50.0
-      - uses: oven-sh/setup-bun@v2.2.0
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: bufbuild/buf-setup-action@a47c93e0b1648d5651a065437926377d060baa99 # v1.50.0
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
 
       - name: Regenerate code
         run: buf generate
