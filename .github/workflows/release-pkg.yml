@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
 
       - name: Setup Buf
-        uses: bufbuild/buf-setup-action@v1
+        uses: bufbuild/buf-setup-action@v1.50.0
 
       - name: Get latest release tag
         id: get_latest_tag
@@ -93,7 +93,7 @@ jobs:
 
       - name: Buf breaking change check
         if: steps.get_latest_tag.outputs.has_previous_release == 'true'
-        uses: bufbuild/buf-breaking-action@v1
+        uses: bufbuild/buf-breaking-action@v1.1.4
         with:
           against: "https://github.com/${{ github.repository }}.git#tag=${{ steps.get_latest_tag.outputs.latest_tag }}"
 
