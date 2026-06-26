@@ -21,22 +21,40 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'pull_request' }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: bufbuild/buf-setup-action@a47c93e0b1648d5651a065437926377d060baa99 # v1.50.0
-      - uses: bufbuild/buf-breaking-action@c57b3d842a5c3f3b454756ef65305a50a587c5ba # v1.1.4
+      - name: Checkout previous commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main,ref=HEAD~1"
+          ref: ${{ github.event.before }}
+          path: base
+      - name: Checkout pushed commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: head
+      - uses: bufbuild/buf-setup-action@a47c93e0b1648d5651a065437926377d060baa99 # v1.50.0
+      - name: Build base image
+        run: buf build base --output "${{ runner.temp }}/base.binpb"
+      - name: Check for breaking changes
+        run: buf breaking head --against "${{ runner.temp }}/base.binpb"
 
   breaking-pr:
     name: Pull request breaking change check
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: bufbuild/buf-setup-action@a47c93e0b1648d5651a065437926377d060baa99 # v1.50.0
-      - uses: bufbuild/buf-breaking-action@c57b3d842a5c3f3b454756ef65305a50a587c5ba # v1.1.4
+      - name: Checkout base branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main,ref=HEAD"
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+      - name: Checkout PR head
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: head
+      - uses: bufbuild/buf-setup-action@a47c93e0b1648d5651a065437926377d060baa99 # v1.50.0
+      - name: Build base image
+        run: buf build base --output "${{ runner.temp }}/base.binpb"
+      - name: Check for breaking changes
+        run: buf breaking head --against "${{ runner.temp }}/base.binpb"
 
   generate:
     name: Generated code up to date
