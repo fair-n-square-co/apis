@@ -33,3 +33,27 @@ jobs:
       - uses: bufbuild/buf-breaking-action@v1
         with:
           against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main,ref=HEAD"
+
+  generate:
+    name: Generated code up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-setup-action@v1
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Regenerate code
+        run: buf generate
+
+      - name: TypeScript typecheck
+        working-directory: gen/ts
+        run: |
+          bun install --frozen-lockfile
+          bun run typecheck
+
+      - name: Verify no changes
+        run: |
+          if ! git diff --exit-code; then
+            echo "::error::Generated code is stale. Run 'make gen' and commit the result."
+            exit 1
+          fi
