@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package fairnsquare.service.authx.v1alpha1;
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/authx/v1alpha1;authxpb";
+
+// User is the canonical user record owned by the Auth (Authx) service: a stable
+// internal id linked to an external OIDC identity. The (issuer, subject) pair
+// is the provider-neutral link to the authentication source (ADR-4), so the
+// source (WorkOS today) is swappable.
+message User {
+  // Stable internal id (UUID). The canonical key other services reference.
+  string id = 1;
+  string email = 2;
+  // OIDC `iss` the identity was provisioned from.
+  string issuer = 3;
+  // OIDC `sub` — the provider's stable user identifier.
+  string subject = 4;
+}

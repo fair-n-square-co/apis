@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package fairnsquare.service.authx.v1alpha1;
+
+import "fairnsquare/service/authx/v1alpha1/authx_types.proto";
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/authx/v1alpha1;authxpb";
+
+// IdentityService owns the canonical user record and JIT-provisions/links users
+// on first login (ADR-4). The OIDC source (WorkOS) is swappable: callers pass
+// provider-neutral claims and the service stores only the (issuer, subject,
+// email) link to a stable internal id.
+service IdentityService {
+  // ResolveUser returns the canonical user for the given verified OIDC claims,
+  // creating or linking it on first login (JIT). It is idempotent: the same
+  // claims always resolve to the same internal id.
+  rpc ResolveUser(ResolveUserRequest) returns (ResolveUserResponse) {}
+}
+
+// ResolveUserRequest carries the verified OIDC claims of the authenticated
+// principal. The caller (the BFF) has already validated the token; signature
+// verification against provider JWKS lands in a later change (FNS-95).
+message ResolveUserRequest {
+  // OIDC `iss` of the authentication source.
+  string issuer = 1;
+  // OIDC `sub` — the provider's stable user identifier.
+  string subject = 2;
+  string email = 3;
+}
+
+message ResolveUserResponse {
+  User user = 1;
+  // True when this call provisioned a new canonical user (first login).
+  bool created = 2;
+}
