@@ -10,13 +10,14 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file fairnsquare/service/authx/v1alpha1/authx_types.proto.
  */
 export const file_fairnsquare_service_authx_v1alpha1_authx_types: GenFile = /*@__PURE__*/
-  fileDesc("CjRmYWlybnNxdWFyZS9zZXJ2aWNlL2F1dGh4L3YxYWxwaGExL2F1dGh4X3R5cGVzLnByb3RvEiJmYWlybnNxdWFyZS5zZXJ2aWNlLmF1dGh4LnYxYWxwaGExIkIKBFVzZXISCgoCaWQYASABKAkSDQoFZW1haWwYAiABKAkSDgoGaXNzdWVyGAMgASgJEg8KB3N1YmplY3QYBCABKAlCVVpTZ2l0aHViLmNvbS9mYWlyLW4tc3F1YXJlLWNvL2FwaXMvZ2VuL3BrZy9mYWlybnNxdWFyZS9zZXJ2aWNlL2F1dGh4L3YxYWxwaGExO2F1dGh4cGJiBnByb3RvMw");
+  fileDesc("CjRmYWlybnNxdWFyZS9zZXJ2aWNlL2F1dGh4L3YxYWxwaGExL2F1dGh4X3R5cGVzLnByb3RvEiJmYWlybnNxdWFyZS5zZXJ2aWNlLmF1dGh4LnYxYWxwaGExIiEKBFVzZXISCgoCaWQYASABKAkSDQoFZW1haWwYAiABKAlCVVpTZ2l0aHViLmNvbS9mYWlyLW4tc3F1YXJlLWNvL2FwaXMvZ2VuL3BrZy9mYWlybnNxdWFyZS9zZXJ2aWNlL2F1dGh4L3YxYWxwaGExO2F1dGh4cGJiBnByb3RvMw");
 
 /**
  * User is the canonical user record owned by the Auth (Authx) service: a stable
- * internal id linked to an external OIDC identity. The (issuer, subject) pair
- * is the provider-neutral link to the authentication source (ADR-4), so the
- * source (WorkOS today) is swappable.
+ * internal id linked to an external OIDC identity. The (issuer, subject) link to
+ * the authentication source (ADR-4) is held internally; we deliberately do not
+ * echo it back to callers, who already supplied it. We return only the fields a
+ * caller needs: the canonical internal id and the normalized email.
  *
  * @generated from message fairnsquare.service.authx.v1alpha1.User
  */
@@ -29,23 +30,11 @@ export type User = Message<"fairnsquare.service.authx.v1alpha1.User"> & {
   id: string;
 
   /**
+   * Normalized (lower-cased, trimmed) email as stored canonically.
+   *
    * @generated from field: string email = 2;
    */
   email: string;
-
-  /**
-   * OIDC `iss` the identity was provisioned from.
-   *
-   * @generated from field: string issuer = 3;
-   */
-  issuer: string;
-
-  /**
-   * OIDC `sub` — the provider's stable user identifier.
-   *
-   * @generated from field: string subject = 4;
-   */
-  subject: string;
 };
 
 /**

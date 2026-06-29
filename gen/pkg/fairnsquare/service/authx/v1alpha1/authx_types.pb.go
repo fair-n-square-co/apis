@@ -22,18 +22,16 @@ const (
 )
 
 // User is the canonical user record owned by the Auth (Authx) service: a stable
-// internal id linked to an external OIDC identity. The (issuer, subject) pair
-// is the provider-neutral link to the authentication source (ADR-4), so the
-// source (WorkOS today) is swappable.
+// internal id linked to an external OIDC identity. The (issuer, subject) link to
+// the authentication source (ADR-4) is held internally; we deliberately do not
+// echo it back to callers, who already supplied it. We return only the fields a
+// caller needs: the canonical internal id and the normalized email.
 type User struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Stable internal id (UUID). The canonical key other services reference.
-	Id    string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Email string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
-	// OIDC `iss` the identity was provisioned from.
-	Issuer string `protobuf:"bytes,3,opt,name=issuer,proto3" json:"issuer,omitempty"`
-	// OIDC `sub` — the provider's stable user identifier.
-	Subject       string `protobuf:"bytes,4,opt,name=subject,proto3" json:"subject,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Normalized (lower-cased, trimmed) email as stored canonically.
+	Email         string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -82,30 +80,14 @@ func (x *User) GetEmail() string {
 	return ""
 }
 
-func (x *User) GetIssuer() string {
-	if x != nil {
-		return x.Issuer
-	}
-	return ""
-}
-
-func (x *User) GetSubject() string {
-	if x != nil {
-		return x.Subject
-	}
-	return ""
-}
-
 var File_fairnsquare_service_authx_v1alpha1_authx_types_proto protoreflect.FileDescriptor
 
 const file_fairnsquare_service_authx_v1alpha1_authx_types_proto_rawDesc = "" +
 	"\n" +
-	"4fairnsquare/service/authx/v1alpha1/authx_types.proto\x12\"fairnsquare.service.authx.v1alpha1\"^\n" +
+	"4fairnsquare/service/authx/v1alpha1/authx_types.proto\x12\"fairnsquare.service.authx.v1alpha1\",\n" +
 	"\x04User\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
-	"\x05email\x18\x02 \x01(\tR\x05email\x12\x16\n" +
-	"\x06issuer\x18\x03 \x01(\tR\x06issuer\x12\x18\n" +
-	"\asubject\x18\x04 \x01(\tR\asubjectBUZSgithub.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/authx/v1alpha1;authxpbb\x06proto3"
+	"\x05email\x18\x02 \x01(\tR\x05emailBUZSgithub.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/authx/v1alpha1;authxpbb\x06proto3"
 
 var (
 	file_fairnsquare_service_authx_v1alpha1_authx_types_proto_rawDescOnce sync.Once
