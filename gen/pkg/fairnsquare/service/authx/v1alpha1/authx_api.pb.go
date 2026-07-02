@@ -21,16 +21,14 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// ResolveUserRequest carries the verified OIDC claims of the authenticated
-// principal. The caller (the BFF) has already validated the token; signature
-// verification against provider JWKS lands in a later change (FNS-95).
+// ResolveUserRequest carries only the user's email. The identity key
+// (issuer/subject) is NOT here — it is derived from the caller's verified WorkOS
+// access token in the `Authorization` metadata, not from asserted request fields
+// (ADR-4 zero trust). Email is a non-identity attribute kept off the token to
+// avoid PII, so the caller supplies it here.
 type ResolveUserRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// OIDC `iss` of the authentication source.
-	Issuer string `protobuf:"bytes,1,opt,name=issuer,proto3" json:"issuer,omitempty"`
-	// OIDC `sub` — the provider's stable user identifier.
-	Subject       string `protobuf:"bytes,2,opt,name=subject,proto3" json:"subject,omitempty"`
-	Email         string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -63,20 +61,6 @@ func (x *ResolveUserRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ResolveUserRequest.ProtoReflect.Descriptor instead.
 func (*ResolveUserRequest) Descriptor() ([]byte, []int) {
 	return file_fairnsquare_service_authx_v1alpha1_authx_api_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *ResolveUserRequest) GetIssuer() string {
-	if x != nil {
-		return x.Issuer
-	}
-	return ""
-}
-
-func (x *ResolveUserRequest) GetSubject() string {
-	if x != nil {
-		return x.Subject
-	}
-	return ""
 }
 
 func (x *ResolveUserRequest) GetEmail() string {
@@ -143,11 +127,9 @@ var File_fairnsquare_service_authx_v1alpha1_authx_api_proto protoreflect.FileDes
 
 const file_fairnsquare_service_authx_v1alpha1_authx_api_proto_rawDesc = "" +
 	"\n" +
-	"2fairnsquare/service/authx/v1alpha1/authx_api.proto\x12\"fairnsquare.service.authx.v1alpha1\x1a4fairnsquare/service/authx/v1alpha1/authx_types.proto\"\\\n" +
-	"\x12ResolveUserRequest\x12\x16\n" +
-	"\x06issuer\x18\x01 \x01(\tR\x06issuer\x12\x18\n" +
-	"\asubject\x18\x02 \x01(\tR\asubject\x12\x14\n" +
-	"\x05email\x18\x03 \x01(\tR\x05email\"m\n" +
+	"2fairnsquare/service/authx/v1alpha1/authx_api.proto\x12\"fairnsquare.service.authx.v1alpha1\x1a4fairnsquare/service/authx/v1alpha1/authx_types.proto\"*\n" +
+	"\x12ResolveUserRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"m\n" +
 	"\x13ResolveUserResponse\x12<\n" +
 	"\x04user\x18\x01 \x01(\v2(.fairnsquare.service.authx.v1alpha1.UserR\x04user\x12\x18\n" +
 	"\acreated\x18\x02 \x01(\bR\acreated2\x94\x01\n" +

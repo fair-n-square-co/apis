@@ -27,13 +27,18 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
 // IdentityService owns the canonical user record and JIT-provisions/links users
-// on first login (ADR-4). The OIDC source (WorkOS) is swappable: callers pass
-// provider-neutral claims and the service stores only the (issuer, subject,
-// email) link to a stable internal id.
+// on first login (ADR-4). The OIDC source (WorkOS) is swappable, and the service
+// stores an (issuer, subject, email) link to a stable internal id.
+//
+// Zero trust (ADR-4 "Zero trust between services"): the caller's identity comes
+// from its WorkOS access token, presented in the `Authorization` request
+// metadata (`Bearer <token>`), never from request fields. The service derives
+// issuer/subject from that token; only the email travels in the message body.
 type IdentityServiceClient interface {
-	// ResolveUser returns the canonical user for the given verified OIDC claims,
-	// creating or linking it on first login (JIT). It is idempotent: the same
-	// claims always resolve to the same internal id.
+	// ResolveUser returns the canonical user for the identity carried by the
+	// caller's access token (`Authorization` metadata), creating it on first login
+	// (JIT). It is idempotent: the same identity always resolves to the same
+	// internal id.
 	ResolveUser(ctx context.Context, in *ResolveUserRequest, opts ...grpc.CallOption) (*ResolveUserResponse, error)
 }
 
@@ -60,13 +65,18 @@ func (c *identityServiceClient) ResolveUser(ctx context.Context, in *ResolveUser
 // for forward compatibility.
 //
 // IdentityService owns the canonical user record and JIT-provisions/links users
-// on first login (ADR-4). The OIDC source (WorkOS) is swappable: callers pass
-// provider-neutral claims and the service stores only the (issuer, subject,
-// email) link to a stable internal id.
+// on first login (ADR-4). The OIDC source (WorkOS) is swappable, and the service
+// stores an (issuer, subject, email) link to a stable internal id.
+//
+// Zero trust (ADR-4 "Zero trust between services"): the caller's identity comes
+// from its WorkOS access token, presented in the `Authorization` request
+// metadata (`Bearer <token>`), never from request fields. The service derives
+// issuer/subject from that token; only the email travels in the message body.
 type IdentityServiceServer interface {
-	// ResolveUser returns the canonical user for the given verified OIDC claims,
-	// creating or linking it on first login (JIT). It is idempotent: the same
-	// claims always resolve to the same internal id.
+	// ResolveUser returns the canonical user for the identity carried by the
+	// caller's access token (`Authorization` metadata), creating it on first login
+	// (JIT). It is idempotent: the same identity always resolves to the same
+	// internal id.
 	ResolveUser(context.Context, *ResolveUserRequest) (*ResolveUserResponse, error)
 	mustEmbedUnimplementedIdentityServiceServer()
 }

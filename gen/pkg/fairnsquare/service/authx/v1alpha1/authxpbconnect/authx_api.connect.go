@@ -41,9 +41,10 @@ const (
 // IdentityServiceClient is a client for the fairnsquare.service.authx.v1alpha1.IdentityService
 // service.
 type IdentityServiceClient interface {
-	// ResolveUser returns the canonical user for the given verified OIDC claims,
-	// creating or linking it on first login (JIT). It is idempotent: the same
-	// claims always resolve to the same internal id.
+	// ResolveUser returns the canonical user for the identity carried by the
+	// caller's access token (`Authorization` metadata), creating it on first login
+	// (JIT). It is idempotent: the same identity always resolves to the same
+	// internal id.
 	ResolveUser(context.Context, *connect.Request[v1alpha1.ResolveUserRequest]) (*connect.Response[v1alpha1.ResolveUserResponse], error)
 }
 
@@ -81,9 +82,10 @@ func (c *identityServiceClient) ResolveUser(ctx context.Context, req *connect.Re
 // IdentityServiceHandler is an implementation of the
 // fairnsquare.service.authx.v1alpha1.IdentityService service.
 type IdentityServiceHandler interface {
-	// ResolveUser returns the canonical user for the given verified OIDC claims,
-	// creating or linking it on first login (JIT). It is idempotent: the same
-	// claims always resolve to the same internal id.
+	// ResolveUser returns the canonical user for the identity carried by the
+	// caller's access token (`Authorization` metadata), creating it on first login
+	// (JIT). It is idempotent: the same identity always resolves to the same
+	// internal id.
 	ResolveUser(context.Context, *connect.Request[v1alpha1.ResolveUserRequest]) (*connect.Response[v1alpha1.ResolveUserResponse], error)
 }
 

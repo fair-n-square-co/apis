@@ -12,32 +12,20 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file fairnsquare/service/authx/v1alpha1/authx_api.proto.
  */
 export const file_fairnsquare_service_authx_v1alpha1_authx_api: GenFile = /*@__PURE__*/
-  fileDesc("CjJmYWlybnNxdWFyZS9zZXJ2aWNlL2F1dGh4L3YxYWxwaGExL2F1dGh4X2FwaS5wcm90bxIiZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMSJEChJSZXNvbHZlVXNlclJlcXVlc3QSDgoGaXNzdWVyGAEgASgJEg8KB3N1YmplY3QYAiABKAkSDQoFZW1haWwYAyABKAkiXgoTUmVzb2x2ZVVzZXJSZXNwb25zZRI2CgR1c2VyGAEgASgLMiguZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMS5Vc2VyEg8KB2NyZWF0ZWQYAiABKAgylAEKD0lkZW50aXR5U2VydmljZRKAAQoLUmVzb2x2ZVVzZXISNi5mYWlybnNxdWFyZS5zZXJ2aWNlLmF1dGh4LnYxYWxwaGExLlJlc29sdmVVc2VyUmVxdWVzdBo3LmZhaXJuc3F1YXJlLnNlcnZpY2UuYXV0aHgudjFhbHBoYTEuUmVzb2x2ZVVzZXJSZXNwb25zZSIAQlVaU2dpdGh1Yi5jb20vZmFpci1uLXNxdWFyZS1jby9hcGlzL2dlbi9wa2cvZmFpcm5zcXVhcmUvc2VydmljZS9hdXRoeC92MWFscGhhMTthdXRoeHBiYgZwcm90bzM", [file_fairnsquare_service_authx_v1alpha1_authx_types]);
+  fileDesc("CjJmYWlybnNxdWFyZS9zZXJ2aWNlL2F1dGh4L3YxYWxwaGExL2F1dGh4X2FwaS5wcm90bxIiZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMSIjChJSZXNvbHZlVXNlclJlcXVlc3QSDQoFZW1haWwYASABKAkiXgoTUmVzb2x2ZVVzZXJSZXNwb25zZRI2CgR1c2VyGAEgASgLMiguZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMS5Vc2VyEg8KB2NyZWF0ZWQYAiABKAgylAEKD0lkZW50aXR5U2VydmljZRKAAQoLUmVzb2x2ZVVzZXISNi5mYWlybnNxdWFyZS5zZXJ2aWNlLmF1dGh4LnYxYWxwaGExLlJlc29sdmVVc2VyUmVxdWVzdBo3LmZhaXJuc3F1YXJlLnNlcnZpY2UuYXV0aHgudjFhbHBoYTEuUmVzb2x2ZVVzZXJSZXNwb25zZSIAQlVaU2dpdGh1Yi5jb20vZmFpci1uLXNxdWFyZS1jby9hcGlzL2dlbi9wa2cvZmFpcm5zcXVhcmUvc2VydmljZS9hdXRoeC92MWFscGhhMTthdXRoeHBiYgZwcm90bzM", [file_fairnsquare_service_authx_v1alpha1_authx_types]);
 
 /**
- * ResolveUserRequest carries the verified OIDC claims of the authenticated
- * principal. The caller (the BFF) has already validated the token; signature
- * verification against provider JWKS lands in a later change (FNS-95).
+ * ResolveUserRequest carries only the user's email. The identity key
+ * (issuer/subject) is NOT here — it is derived from the caller's verified WorkOS
+ * access token in the `Authorization` metadata, not from asserted request fields
+ * (ADR-4 zero trust). Email is a non-identity attribute kept off the token to
+ * avoid PII, so the caller supplies it here.
  *
  * @generated from message fairnsquare.service.authx.v1alpha1.ResolveUserRequest
  */
 export type ResolveUserRequest = Message<"fairnsquare.service.authx.v1alpha1.ResolveUserRequest"> & {
   /**
-   * OIDC `iss` of the authentication source.
-   *
-   * @generated from field: string issuer = 1;
-   */
-  issuer: string;
-
-  /**
-   * OIDC `sub` — the provider's stable user identifier.
-   *
-   * @generated from field: string subject = 2;
-   */
-  subject: string;
-
-  /**
-   * @generated from field: string email = 3;
+   * @generated from field: string email = 1;
    */
   email: string;
 };
@@ -75,17 +63,22 @@ export const ResolveUserResponseSchema: GenMessage<ResolveUserResponse> = /*@__P
 
 /**
  * IdentityService owns the canonical user record and JIT-provisions/links users
- * on first login (ADR-4). The OIDC source (WorkOS) is swappable: callers pass
- * provider-neutral claims and the service stores only the (issuer, subject,
- * email) link to a stable internal id.
+ * on first login (ADR-4). The OIDC source (WorkOS) is swappable, and the service
+ * stores an (issuer, subject, email) link to a stable internal id.
+ *
+ * Zero trust (ADR-4 "Zero trust between services"): the caller's identity comes
+ * from its WorkOS access token, presented in the `Authorization` request
+ * metadata (`Bearer <token>`), never from request fields. The service derives
+ * issuer/subject from that token; only the email travels in the message body.
  *
  * @generated from service fairnsquare.service.authx.v1alpha1.IdentityService
  */
 export const IdentityService: GenService<{
   /**
-   * ResolveUser returns the canonical user for the given verified OIDC claims,
-   * creating or linking it on first login (JIT). It is idempotent: the same
-   * claims always resolve to the same internal id.
+   * ResolveUser returns the canonical user for the identity carried by the
+   * caller's access token (`Authorization` metadata), creating it on first login
+   * (JIT). It is idempotent: the same identity always resolves to the same
+   * internal id.
    *
    * @generated from rpc fairnsquare.service.authx.v1alpha1.IdentityService.ResolveUser
    */
