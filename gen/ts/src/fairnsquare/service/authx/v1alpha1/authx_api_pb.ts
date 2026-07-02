@@ -2,8 +2,8 @@
 // @generated from file fairnsquare/service/authx/v1alpha1/authx_api.proto (package fairnsquare.service.authx.v1alpha1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
+import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
+import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
 import type { User } from "./authx_types_pb";
 import { file_fairnsquare_service_authx_v1alpha1_authx_types } from "./authx_types_pb";
 import type { Message } from "@bufbuild/protobuf";
@@ -12,7 +12,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file fairnsquare/service/authx/v1alpha1/authx_api.proto.
  */
 export const file_fairnsquare_service_authx_v1alpha1_authx_api: GenFile = /*@__PURE__*/
-  fileDesc("CjJmYWlybnNxdWFyZS9zZXJ2aWNlL2F1dGh4L3YxYWxwaGExL2F1dGh4X2FwaS5wcm90bxIiZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMSIjChJSZXNvbHZlVXNlclJlcXVlc3QSDQoFZW1haWwYASABKAkiXgoTUmVzb2x2ZVVzZXJSZXNwb25zZRI2CgR1c2VyGAEgASgLMiguZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMS5Vc2VyEg8KB2NyZWF0ZWQYAiABKAgylAEKD0lkZW50aXR5U2VydmljZRKAAQoLUmVzb2x2ZVVzZXISNi5mYWlybnNxdWFyZS5zZXJ2aWNlLmF1dGh4LnYxYWxwaGExLlJlc29sdmVVc2VyUmVxdWVzdBo3LmZhaXJuc3F1YXJlLnNlcnZpY2UuYXV0aHgudjFhbHBoYTEuUmVzb2x2ZVVzZXJSZXNwb25zZSIAQlVaU2dpdGh1Yi5jb20vZmFpci1uLXNxdWFyZS1jby9hcGlzL2dlbi9wa2cvZmFpcm5zcXVhcmUvc2VydmljZS9hdXRoeC92MWFscGhhMTthdXRoeHBiYgZwcm90bzM", [file_fairnsquare_service_authx_v1alpha1_authx_types]);
+  fileDesc("CjJmYWlybnNxdWFyZS9zZXJ2aWNlL2F1dGh4L3YxYWxwaGExL2F1dGh4X2FwaS5wcm90bxIiZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMSIjChJSZXNvbHZlVXNlclJlcXVlc3QSDQoFZW1haWwYASABKAki/QEKE1Jlc29sdmVVc2VyUmVzcG9uc2USNgoEdXNlchgBIAEoCzIoLmZhaXJuc3F1YXJlLnNlcnZpY2UuYXV0aHgudjFhbHBoYTEuVXNlchJWCgpyZXNvbHV0aW9uGAIgASgOMkIuZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMS5SZXNvbHZlVXNlclJlc3BvbnNlLlJlc29sdXRpb24iVgoKUmVzb2x1dGlvbhIaChZSRVNPTFVUSU9OX1VOU1BFQ0lGSUVEEAASFgoSUkVTT0xVVElPTl9DUkVBVEVEEAESFAoQUkVTT0xVVElPTl9GT1VORBACMpQBCg9JZGVudGl0eVNlcnZpY2USgAEKC1Jlc29sdmVVc2VyEjYuZmFpcm5zcXVhcmUuc2VydmljZS5hdXRoeC52MWFscGhhMS5SZXNvbHZlVXNlclJlcXVlc3QaNy5mYWlybnNxdWFyZS5zZXJ2aWNlLmF1dGh4LnYxYWxwaGExLlJlc29sdmVVc2VyUmVzcG9uc2UiAEJVWlNnaXRodWIuY29tL2ZhaXItbi1zcXVhcmUtY28vYXBpcy9nZW4vcGtnL2ZhaXJuc3F1YXJlL3NlcnZpY2UvYXV0aHgvdjFhbHBoYTE7YXV0aHhwYmIGcHJvdG8z", [file_fairnsquare_service_authx_v1alpha1_authx_types]);
 
 /**
  * ResolveUserRequest carries only the user's email. The identity key
@@ -47,11 +47,11 @@ export type ResolveUserResponse = Message<"fairnsquare.service.authx.v1alpha1.Re
   user?: User;
 
   /**
-   * True when this call provisioned a new canonical user (first login).
+   * How this call resolved the identity to the canonical user.
    *
-   * @generated from field: bool created = 2;
+   * @generated from field: fairnsquare.service.authx.v1alpha1.ResolveUserResponse.Resolution resolution = 2;
    */
-  created: boolean;
+  resolution: ResolveUserResponse_Resolution;
 };
 
 /**
@@ -60,6 +60,43 @@ export type ResolveUserResponse = Message<"fairnsquare.service.authx.v1alpha1.Re
  */
 export const ResolveUserResponseSchema: GenMessage<ResolveUserResponse> = /*@__PURE__*/
   messageDesc(file_fairnsquare_service_authx_v1alpha1_authx_api, 1);
+
+/**
+ * Resolution reports what the call did with the token-verified identity. It
+ * describes the outcome of this operation, not the user's lifecycle state.
+ *
+ * @generated from enum fairnsquare.service.authx.v1alpha1.ResolveUserResponse.Resolution
+ */
+export enum ResolveUserResponse_Resolution {
+  /**
+   * @generated from enum value: RESOLUTION_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * First login: JIT-provisioned a new canonical user.
+   *
+   * @generated from enum value: RESOLUTION_CREATED = 1;
+   */
+  CREATED = 1,
+
+  /**
+   * Existing canonical user found by the identity key (iss/sub).
+   *
+   * Future: a new provider identity linked to an existing user by verified
+   * email, rather than rejected. Not emitted yet (see users_email_key).
+   * RESOLUTION_LINKED = 3;
+   *
+   * @generated from enum value: RESOLUTION_FOUND = 2;
+   */
+  FOUND = 2,
+}
+
+/**
+ * Describes the enum fairnsquare.service.authx.v1alpha1.ResolveUserResponse.Resolution.
+ */
+export const ResolveUserResponse_ResolutionSchema: GenEnum<ResolveUserResponse_Resolution> = /*@__PURE__*/
+  enumDesc(file_fairnsquare_service_authx_v1alpha1_authx_api, 1, 0);
 
 /**
  * IdentityService owns the canonical user record and JIT-provisions/links users

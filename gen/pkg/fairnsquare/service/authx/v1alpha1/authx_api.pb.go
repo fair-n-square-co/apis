@@ -21,6 +21,59 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Resolution reports what the call did with the token-verified identity. It
+// describes the outcome of this operation, not the user's lifecycle state.
+type ResolveUserResponse_Resolution int32
+
+const (
+	ResolveUserResponse_RESOLUTION_UNSPECIFIED ResolveUserResponse_Resolution = 0
+	// First login: JIT-provisioned a new canonical user.
+	ResolveUserResponse_RESOLUTION_CREATED ResolveUserResponse_Resolution = 1
+	// Existing canonical user found by the identity key (iss/sub).
+	ResolveUserResponse_RESOLUTION_FOUND ResolveUserResponse_Resolution = 2
+)
+
+// Enum value maps for ResolveUserResponse_Resolution.
+var (
+	ResolveUserResponse_Resolution_name = map[int32]string{
+		0: "RESOLUTION_UNSPECIFIED",
+		1: "RESOLUTION_CREATED",
+		2: "RESOLUTION_FOUND",
+	}
+	ResolveUserResponse_Resolution_value = map[string]int32{
+		"RESOLUTION_UNSPECIFIED": 0,
+		"RESOLUTION_CREATED":     1,
+		"RESOLUTION_FOUND":       2,
+	}
+)
+
+func (x ResolveUserResponse_Resolution) Enum() *ResolveUserResponse_Resolution {
+	p := new(ResolveUserResponse_Resolution)
+	*p = x
+	return p
+}
+
+func (x ResolveUserResponse_Resolution) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ResolveUserResponse_Resolution) Descriptor() protoreflect.EnumDescriptor {
+	return file_fairnsquare_service_authx_v1alpha1_authx_api_proto_enumTypes[0].Descriptor()
+}
+
+func (ResolveUserResponse_Resolution) Type() protoreflect.EnumType {
+	return &file_fairnsquare_service_authx_v1alpha1_authx_api_proto_enumTypes[0]
+}
+
+func (x ResolveUserResponse_Resolution) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ResolveUserResponse_Resolution.Descriptor instead.
+func (ResolveUserResponse_Resolution) EnumDescriptor() ([]byte, []int) {
+	return file_fairnsquare_service_authx_v1alpha1_authx_api_proto_rawDescGZIP(), []int{1, 0}
+}
+
 // ResolveUserRequest carries only the user's email. The identity key
 // (issuer/subject) is NOT here — it is derived from the caller's verified WorkOS
 // access token in the `Authorization` metadata, not from asserted request fields
@@ -73,8 +126,8 @@ func (x *ResolveUserRequest) GetEmail() string {
 type ResolveUserResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	User  *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-	// True when this call provisioned a new canonical user (first login).
-	Created       bool `protobuf:"varint,2,opt,name=created,proto3" json:"created,omitempty"`
+	// How this call resolved the identity to the canonical user.
+	Resolution    ResolveUserResponse_Resolution `protobuf:"varint,2,opt,name=resolution,proto3,enum=fairnsquare.service.authx.v1alpha1.ResolveUserResponse_Resolution" json:"resolution,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -116,11 +169,11 @@ func (x *ResolveUserResponse) GetUser() *User {
 	return nil
 }
 
-func (x *ResolveUserResponse) GetCreated() bool {
+func (x *ResolveUserResponse) GetResolution() ResolveUserResponse_Resolution {
 	if x != nil {
-		return x.Created
+		return x.Resolution
 	}
-	return false
+	return ResolveUserResponse_RESOLUTION_UNSPECIFIED
 }
 
 var File_fairnsquare_service_authx_v1alpha1_authx_api_proto protoreflect.FileDescriptor
@@ -129,10 +182,17 @@ const file_fairnsquare_service_authx_v1alpha1_authx_api_proto_rawDesc = "" +
 	"\n" +
 	"2fairnsquare/service/authx/v1alpha1/authx_api.proto\x12\"fairnsquare.service.authx.v1alpha1\x1a4fairnsquare/service/authx/v1alpha1/authx_types.proto\"*\n" +
 	"\x12ResolveUserRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"m\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"\x8f\x02\n" +
 	"\x13ResolveUserResponse\x12<\n" +
-	"\x04user\x18\x01 \x01(\v2(.fairnsquare.service.authx.v1alpha1.UserR\x04user\x12\x18\n" +
-	"\acreated\x18\x02 \x01(\bR\acreated2\x94\x01\n" +
+	"\x04user\x18\x01 \x01(\v2(.fairnsquare.service.authx.v1alpha1.UserR\x04user\x12b\n" +
+	"\n" +
+	"resolution\x18\x02 \x01(\x0e2B.fairnsquare.service.authx.v1alpha1.ResolveUserResponse.ResolutionR\n" +
+	"resolution\"V\n" +
+	"\n" +
+	"Resolution\x12\x1a\n" +
+	"\x16RESOLUTION_UNSPECIFIED\x10\x00\x12\x16\n" +
+	"\x12RESOLUTION_CREATED\x10\x01\x12\x14\n" +
+	"\x10RESOLUTION_FOUND\x10\x022\x94\x01\n" +
 	"\x0fIdentityService\x12\x80\x01\n" +
 	"\vResolveUser\x126.fairnsquare.service.authx.v1alpha1.ResolveUserRequest\x1a7.fairnsquare.service.authx.v1alpha1.ResolveUserResponse\"\x00BUZSgithub.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/authx/v1alpha1;authxpbb\x06proto3"
 
@@ -148,21 +208,24 @@ func file_fairnsquare_service_authx_v1alpha1_authx_api_proto_rawDescGZIP() []byt
 	return file_fairnsquare_service_authx_v1alpha1_authx_api_proto_rawDescData
 }
 
+var file_fairnsquare_service_authx_v1alpha1_authx_api_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_fairnsquare_service_authx_v1alpha1_authx_api_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_fairnsquare_service_authx_v1alpha1_authx_api_proto_goTypes = []any{
-	(*ResolveUserRequest)(nil),  // 0: fairnsquare.service.authx.v1alpha1.ResolveUserRequest
-	(*ResolveUserResponse)(nil), // 1: fairnsquare.service.authx.v1alpha1.ResolveUserResponse
-	(*User)(nil),                // 2: fairnsquare.service.authx.v1alpha1.User
+	(ResolveUserResponse_Resolution)(0), // 0: fairnsquare.service.authx.v1alpha1.ResolveUserResponse.Resolution
+	(*ResolveUserRequest)(nil),          // 1: fairnsquare.service.authx.v1alpha1.ResolveUserRequest
+	(*ResolveUserResponse)(nil),         // 2: fairnsquare.service.authx.v1alpha1.ResolveUserResponse
+	(*User)(nil),                        // 3: fairnsquare.service.authx.v1alpha1.User
 }
 var file_fairnsquare_service_authx_v1alpha1_authx_api_proto_depIdxs = []int32{
-	2, // 0: fairnsquare.service.authx.v1alpha1.ResolveUserResponse.user:type_name -> fairnsquare.service.authx.v1alpha1.User
-	0, // 1: fairnsquare.service.authx.v1alpha1.IdentityService.ResolveUser:input_type -> fairnsquare.service.authx.v1alpha1.ResolveUserRequest
-	1, // 2: fairnsquare.service.authx.v1alpha1.IdentityService.ResolveUser:output_type -> fairnsquare.service.authx.v1alpha1.ResolveUserResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	3, // 0: fairnsquare.service.authx.v1alpha1.ResolveUserResponse.user:type_name -> fairnsquare.service.authx.v1alpha1.User
+	0, // 1: fairnsquare.service.authx.v1alpha1.ResolveUserResponse.resolution:type_name -> fairnsquare.service.authx.v1alpha1.ResolveUserResponse.Resolution
+	1, // 2: fairnsquare.service.authx.v1alpha1.IdentityService.ResolveUser:input_type -> fairnsquare.service.authx.v1alpha1.ResolveUserRequest
+	2, // 3: fairnsquare.service.authx.v1alpha1.IdentityService.ResolveUser:output_type -> fairnsquare.service.authx.v1alpha1.ResolveUserResponse
+	3, // [3:4] is the sub-list for method output_type
+	2, // [2:3] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_fairnsquare_service_authx_v1alpha1_authx_api_proto_init() }
@@ -176,13 +239,14 @@ func file_fairnsquare_service_authx_v1alpha1_authx_api_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_fairnsquare_service_authx_v1alpha1_authx_api_proto_rawDesc), len(file_fairnsquare_service_authx_v1alpha1_authx_api_proto_rawDesc)),
-			NumEnums:      0,
+			NumEnums:      1,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_fairnsquare_service_authx_v1alpha1_authx_api_proto_goTypes,
 		DependencyIndexes: file_fairnsquare_service_authx_v1alpha1_authx_api_proto_depIdxs,
+		EnumInfos:         file_fairnsquare_service_authx_v1alpha1_authx_api_proto_enumTypes,
 		MessageInfos:      file_fairnsquare_service_authx_v1alpha1_authx_api_proto_msgTypes,
 	}.Build()
 	File_fairnsquare_service_authx_v1alpha1_authx_api_proto = out.File

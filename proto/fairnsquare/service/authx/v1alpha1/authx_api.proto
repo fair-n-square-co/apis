@@ -33,6 +33,19 @@ message ResolveUserRequest {
 
 message ResolveUserResponse {
   User user = 1;
-  // True when this call provisioned a new canonical user (first login).
-  bool created = 2;
+  // How this call resolved the identity to the canonical user.
+  Resolution resolution = 2;
+
+  // Resolution reports what the call did with the token-verified identity. It
+  // describes the outcome of this operation, not the user's lifecycle state.
+  enum Resolution {
+    RESOLUTION_UNSPECIFIED = 0;
+    // First login: JIT-provisioned a new canonical user.
+    RESOLUTION_CREATED = 1;
+    // Existing canonical user found by the identity key (iss/sub).
+    RESOLUTION_FOUND = 2;
+    // Future: a new provider identity linked to an existing user by verified
+    // email, rather than rejected. Not emitted yet (see users_email_key).
+    // RESOLUTION_LINKED = 3;
+  }
 }
