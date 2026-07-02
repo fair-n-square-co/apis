@@ -83,10 +83,6 @@ export enum ResolveUserResponse_Resolution {
   /**
    * Existing canonical user found by the identity key (iss/sub).
    *
-   * Future: a new provider identity linked to an existing user by verified
-   * email, rather than rejected. Not emitted yet (see users_email_key).
-   * RESOLUTION_LINKED = 3;
-   *
    * @generated from enum value: RESOLUTION_FOUND = 2;
    */
   FOUND = 2,

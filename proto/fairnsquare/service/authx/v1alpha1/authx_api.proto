@@ -44,8 +44,5 @@ message ResolveUserResponse {
     RESOLUTION_CREATED = 1;
     // Existing canonical user found by the identity key (iss/sub).
     RESOLUTION_FOUND = 2;
-    // Future: a new provider identity linked to an existing user by verified
-    // email, rather than rejected. Not emitted yet (see users_email_key).
-    // RESOLUTION_LINKED = 3;
   }
 }
