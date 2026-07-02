@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package fairnsquare.service.authx.v1alpha1;
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/authx/v1alpha1;authxpb";
+
+// User is the canonical user record owned by the Auth (Authx) service: a stable
+// internal id linked to an external OIDC identity. The (issuer, subject) link to
+// the authentication source (ADR-4) is held internally; we deliberately do not
+// echo it back to callers, who already supplied it. We return only the fields a
+// caller needs: the canonical internal id and the normalized email.
+message User {
+  // Stable internal id (UUID). The canonical key other services reference.
+  string id = 1;
+  // Normalized (lower-cased, trimmed) email as stored canonically.
+  string email = 2;
+}
