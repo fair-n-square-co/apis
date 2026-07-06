@@ -93,18 +93,21 @@ func (ErrorReason) EnumDescriptor() ([]byte, []int) {
 	return file_fairnsquare_errors_authx_v1alpha1_errors_proto_rawDescGZIP(), []int{0}
 }
 
-// ErrorDetail is attached to a failed authx RPC as a connect error detail,
-// pairing the machine-readable reason with the offending request field (for form
-// UIs). Read it client-side alongside the status code; for wire-level validation
-// failures the protovalidate interceptor additionally attaches its own
-// buf.validate.Violations detail.
+// ErrorDetail is attached to a failed authx RPC as a connect error detail: the
+// machine-readable reason, the offending request field (for form UIs), and a
+// human-readable message. Read it client-side alongside the status code; for
+// wire-level validation failures the protovalidate interceptor additionally
+// attaches its own buf.validate.Violations detail.
 type ErrorDetail struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// The machine-readable reason for the failure.
+	// The machine-readable reason for the failure — branch on this, not the message.
 	Reason ErrorReason `protobuf:"varint,1,opt,name=reason,proto3,enum=fairnsquare.errors.authx.v1alpha1.ErrorReason" json:"reason,omitempty"`
 	// The request field the error concerns (e.g. "username"), or empty when the
 	// error is not tied to a single field.
-	Field         string `protobuf:"bytes,2,opt,name=field,proto3" json:"field,omitempty"`
+	Field string `protobuf:"bytes,2,opt,name=field,proto3" json:"field,omitempty"`
+	// A human-readable, client-safe description of the failure, or empty when the
+	// reason alone is sufficient.
+	Message       string `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -153,14 +156,22 @@ func (x *ErrorDetail) GetField() string {
 	return ""
 }
 
+func (x *ErrorDetail) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_fairnsquare_errors_authx_v1alpha1_errors_proto protoreflect.FileDescriptor
 
 const file_fairnsquare_errors_authx_v1alpha1_errors_proto_rawDesc = "" +
 	"\n" +
-	".fairnsquare/errors/authx/v1alpha1/errors.proto\x12!fairnsquare.errors.authx.v1alpha1\"k\n" +
+	".fairnsquare/errors/authx/v1alpha1/errors.proto\x12!fairnsquare.errors.authx.v1alpha1\"\x85\x01\n" +
 	"\vErrorDetail\x12F\n" +
 	"\x06reason\x18\x01 \x01(\x0e2..fairnsquare.errors.authx.v1alpha1.ErrorReasonR\x06reason\x12\x14\n" +
-	"\x05field\x18\x02 \x01(\tR\x05field*\xa5\x01\n" +
+	"\x05field\x18\x02 \x01(\tR\x05field\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage*\xa5\x01\n" +
 	"\vErrorReason\x12\x1c\n" +
 	"\x18ERROR_REASON_UNSPECIFIED\x10\x00\x12'\n" +
 	"#ERROR_REASON_PROFILE_USERNAME_TAKEN\x10\x01\x12$\n" +

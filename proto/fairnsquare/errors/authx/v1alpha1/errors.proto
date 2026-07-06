@@ -32,15 +32,18 @@ enum ErrorReason {
   ERROR_REASON_PROFILE_INVALID_TIMEZONE = 3;
 }
 
-// ErrorDetail is attached to a failed authx RPC as a connect error detail,
-// pairing the machine-readable reason with the offending request field (for form
-// UIs). Read it client-side alongside the status code; for wire-level validation
-// failures the protovalidate interceptor additionally attaches its own
-// buf.validate.Violations detail.
+// ErrorDetail is attached to a failed authx RPC as a connect error detail: the
+// machine-readable reason, the offending request field (for form UIs), and a
+// human-readable message. Read it client-side alongside the status code; for
+// wire-level validation failures the protovalidate interceptor additionally
+// attaches its own buf.validate.Violations detail.
 message ErrorDetail {
-  // The machine-readable reason for the failure.
+  // The machine-readable reason for the failure — branch on this, not the message.
   ErrorReason reason = 1;
   // The request field the error concerns (e.g. "username"), or empty when the
   // error is not tied to a single field.
   string field = 2;
+  // A human-readable, client-safe description of the failure, or empty when the
+  // reason alone is sufficient.
+  string message = 3;
 }

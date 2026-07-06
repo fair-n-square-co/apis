@@ -10,20 +10,20 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file fairnsquare/errors/authx/v1alpha1/errors.proto.
  */
 export const file_fairnsquare_errors_authx_v1alpha1_errors: GenFile = /*@__PURE__*/
-  fileDesc("Ci5mYWlybnNxdWFyZS9lcnJvcnMvYXV0aHgvdjFhbHBoYTEvZXJyb3JzLnByb3RvEiFmYWlybnNxdWFyZS5lcnJvcnMuYXV0aHgudjFhbHBoYTEiXAoLRXJyb3JEZXRhaWwSPgoGcmVhc29uGAEgASgOMi4uZmFpcm5zcXVhcmUuZXJyb3JzLmF1dGh4LnYxYWxwaGExLkVycm9yUmVhc29uEg0KBWZpZWxkGAIgASgJKqUBCgtFcnJvclJlYXNvbhIcChhFUlJPUl9SRUFTT05fVU5TUEVDSUZJRUQQABInCiNFUlJPUl9SRUFTT05fUFJPRklMRV9VU0VSTkFNRV9UQUtFThABEiQKIEVSUk9SX1JFQVNPTl9QUk9GSUxFX0VNQUlMX1RBS0VOEAISKQolRVJST1JfUkVBU09OX1BST0ZJTEVfSU5WQUxJRF9USU1FWk9ORRADQlpaWGdpdGh1Yi5jb20vZmFpci1uLXNxdWFyZS1jby9hcGlzL2dlbi9wa2cvZmFpcm5zcXVhcmUvZXJyb3JzL2F1dGh4L3YxYWxwaGExO2F1dGh4ZXJyb3JzcGJiBnByb3RvMw");
+  fileDesc("Ci5mYWlybnNxdWFyZS9lcnJvcnMvYXV0aHgvdjFhbHBoYTEvZXJyb3JzLnByb3RvEiFmYWlybnNxdWFyZS5lcnJvcnMuYXV0aHgudjFhbHBoYTEibQoLRXJyb3JEZXRhaWwSPgoGcmVhc29uGAEgASgOMi4uZmFpcm5zcXVhcmUuZXJyb3JzLmF1dGh4LnYxYWxwaGExLkVycm9yUmVhc29uEg0KBWZpZWxkGAIgASgJEg8KB21lc3NhZ2UYAyABKAkqpQEKC0Vycm9yUmVhc29uEhwKGEVSUk9SX1JFQVNPTl9VTlNQRUNJRklFRBAAEicKI0VSUk9SX1JFQVNPTl9QUk9GSUxFX1VTRVJOQU1FX1RBS0VOEAESJAogRVJST1JfUkVBU09OX1BST0ZJTEVfRU1BSUxfVEFLRU4QAhIpCiVFUlJPUl9SRUFTT05fUFJPRklMRV9JTlZBTElEX1RJTUVaT05FEANCWlpYZ2l0aHViLmNvbS9mYWlyLW4tc3F1YXJlLWNvL2FwaXMvZ2VuL3BrZy9mYWlybnNxdWFyZS9lcnJvcnMvYXV0aHgvdjFhbHBoYTE7YXV0aHhlcnJvcnNwYmIGcHJvdG8z");
 
 /**
- * ErrorDetail is attached to a failed authx RPC as a connect error detail,
- * pairing the machine-readable reason with the offending request field (for form
- * UIs). Read it client-side alongside the status code; for wire-level validation
- * failures the protovalidate interceptor additionally attaches its own
- * buf.validate.Violations detail.
+ * ErrorDetail is attached to a failed authx RPC as a connect error detail: the
+ * machine-readable reason, the offending request field (for form UIs), and a
+ * human-readable message. Read it client-side alongside the status code; for
+ * wire-level validation failures the protovalidate interceptor additionally
+ * attaches its own buf.validate.Violations detail.
  *
  * @generated from message fairnsquare.errors.authx.v1alpha1.ErrorDetail
  */
 export type ErrorDetail = Message<"fairnsquare.errors.authx.v1alpha1.ErrorDetail"> & {
   /**
-   * The machine-readable reason for the failure.
+   * The machine-readable reason for the failure — branch on this, not the message.
    *
    * @generated from field: fairnsquare.errors.authx.v1alpha1.ErrorReason reason = 1;
    */
@@ -36,6 +36,14 @@ export type ErrorDetail = Message<"fairnsquare.errors.authx.v1alpha1.ErrorDetail
    * @generated from field: string field = 2;
    */
   field: string;
+
+  /**
+   * A human-readable, client-safe description of the failure, or empty when the
+   * reason alone is sufficient.
+   *
+   * @generated from field: string message = 3;
+   */
+  message: string;
 };
 
 /**
