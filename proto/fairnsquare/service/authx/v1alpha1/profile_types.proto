@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package fairnsquare.service.authx.v1alpha1;
+
+import "buf/validate/validate.proto";
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/authx/v1alpha1;authxpb";
+
+// Profile is the user-facing, mutable view of the canonical user record owned by
+// the Auth (Authx) service. It sits on the same `user` row as the identity link
+// (ADR-4): the (issuer, subject) identity keys stay internal and are never
+// exposed here, while these attributes are what a user edits about themselves.
+//
+// `email` is carried here too: it is set at JIT provisioning (FNS-92) from the
+// login, and profile updates own it going forward.
+message Profile {
+  // Stable internal id (UUID) of the canonical user. The key other services
+  // reference; not editable.
+  string user_id = 1;
+  // Unique, lower-cased discovery handle used to find a user on the platform
+  // (e.g. when adding a friend). Unique across all users.
+  string username = 2;
+  // Human-facing display name. A single free-form field (not split into
+  // first/last). May be empty until the user sets it.
+  string display_name = 3;
+  // Normalized (lower-cased, trimmed) email as stored canonically. Owned by
+  // profile updates after the initial JIT value.
+  string email = 4;
+  // Typed user preferences.
+  Preferences preferences = 5;
+}
+
+// Preferences are the typed, known user settings stored as real columns on the
+// user record. Kept as an explicit, validatable set (not a free-form blob) so
+// each field can be validated server-side; extend by adding a field + column.
+message Preferences {
+  // ISO-4217 currency code the user reads amounts in by default (e.g. "AUD").
+  // Empty (unset) is allowed; when present it must be three uppercase letters.
+  string preferred_currency = 1 [
+    (buf.validate.field).string.pattern = "^([A-Z]{3})?$"
+  ];
+  // BCP-47 locale tag for formatting (e.g. "en-AU"). Empty is allowed; when
+  // present it must be a well-formed language(-subtag) sequence.
+  string locale = 2 [
+    (buf.validate.field).string.max_len = 35,
+    (buf.validate.field).string.pattern = "^([A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*)?$"
+  ];
+  // IANA timezone name (e.g. "Australia/Sydney"). Length-gated only, since IANA
+  // names vary in shape; the service validates it against the tz database.
+  string timezone = 3 [
+    (buf.validate.field).string.max_len = 64
+  ];
+}

@@ -11,3 +11,4 @@ modules:
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/protocolbuffers/wellknowntypes
+  - buf.build/bufbuild/protovalidate
