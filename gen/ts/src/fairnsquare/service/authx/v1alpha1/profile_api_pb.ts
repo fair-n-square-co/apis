@@ -127,8 +127,9 @@ export const UpdateProfileResponseSchema: GenMessage<UpdateProfileResponse> = /*
  * the attributes being read or written. A caller cannot address another user's
  * profile.
  *
- * Note: the token signature is not yet verified (it is only decoded); until that
- * lands (FNS-95) the service must be reachable only by trusted callers.
+ * Note: the token signature is not yet verified (it is only decoded); until
+ * signature verification lands the service must be reachable only by trusted
+ * callers.
  *
  * @generated from service fairnsquare.service.authx.v1alpha1.ProfileService
  */

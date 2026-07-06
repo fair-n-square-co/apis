@@ -19,8 +19,8 @@ export const file_fairnsquare_service_authx_v1alpha1_profile_types: GenFile = /*
  * (ADR-4): the (issuer, subject) identity keys stay internal and are never
  * exposed here, while these attributes are what a user edits about themselves.
  *
- * `email` is carried here too: it is set at JIT provisioning (FNS-92) from the
- * login, and profile updates own it going forward.
+ * `email` is carried here too: it is set at JIT provisioning from the login, and
+ * profile updates own it going forward.
  *
  * @generated from message fairnsquare.service.authx.v1alpha1.Profile
  */

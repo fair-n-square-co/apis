@@ -27,8 +27,8 @@ const (
 // (ADR-4): the (issuer, subject) identity keys stay internal and are never
 // exposed here, while these attributes are what a user edits about themselves.
 //
-// `email` is carried here too: it is set at JIT provisioning (FNS-92) from the
-// login, and profile updates own it going forward.
+// `email` is carried here too: it is set at JIT provisioning from the login, and
+// profile updates own it going forward.
 type Profile struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Stable internal id (UUID) of the canonical user. The key other services

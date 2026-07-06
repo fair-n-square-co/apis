@@ -39,8 +39,9 @@ const (
 // the attributes being read or written. A caller cannot address another user's
 // profile.
 //
-// Note: the token signature is not yet verified (it is only decoded); until that
-// lands (FNS-95) the service must be reachable only by trusted callers.
+// Note: the token signature is not yet verified (it is only decoded); until
+// signature verification lands the service must be reachable only by trusted
+// callers.
 type ProfileServiceClient interface {
 	// GetProfile returns the caller's own profile, identified by the access token
 	// in the `Authorization` metadata. Returns NotFound if the user has not been
@@ -100,8 +101,9 @@ func (c *profileServiceClient) UpdateProfile(ctx context.Context, in *UpdateProf
 // the attributes being read or written. A caller cannot address another user's
 // profile.
 //
-// Note: the token signature is not yet verified (it is only decoded); until that
-// lands (FNS-95) the service must be reachable only by trusted callers.
+// Note: the token signature is not yet verified (it is only decoded); until
+// signature verification lands the service must be reachable only by trusted
+// callers.
 type ProfileServiceServer interface {
 	// GetProfile returns the caller's own profile, identified by the access token
 	// in the `Authorization` metadata. Returns NotFound if the user has not been

@@ -36,9 +36,7 @@ message Profile {
 message Preferences {
   // ISO-4217 currency code the user reads amounts in by default (e.g. "AUD").
   // Empty (unset) is allowed; when present it must be three uppercase letters.
-  string preferred_currency = 1 [
-    (buf.validate.field).string.pattern = "^([A-Z]{3})?$"
-  ];
+  string preferred_currency = 1 [(buf.validate.field).string.pattern = "^([A-Z]{3})?$"];
   // BCP-47 locale tag for formatting (e.g. "en-AU"). Empty is allowed; when
   // present it must be a well-formed language(-subtag) sequence.
   string locale = 2 [
@@ -47,7 +45,5 @@ message Preferences {
   ];
   // IANA timezone name (e.g. "Australia/Sydney"). Length-gated only, since IANA
   // names vary in shape; the service validates it against the tz database.
-  string timezone = 3 [
-    (buf.validate.field).string.max_len = 64
-  ];
+  string timezone = 3 [(buf.validate.field).string.max_len = 64];
 }
