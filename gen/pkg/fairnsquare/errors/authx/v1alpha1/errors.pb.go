@@ -27,23 +27,27 @@ const (
 // parsing human-facing messages.
 //
 // Values are namespaced by RPC group (PROFILE_, and future IDENTITY_, …) so one
-// per-service enum covers every RPC without collisions. Reasons are append-only:
-// never renumber or reuse a value. buf lint STANDARD requires the ERROR_REASON_
-// prefix and the _UNSPECIFIED zero value; the prefix also keeps the
+// per-service enum covers every RPC without collisions. Reasons are append-only
+// once released: never renumber or reuse a value. buf lint STANDARD requires the
+// ERROR_REASON_ prefix and the _UNSPECIFIED zero value; the prefix also keeps the
 // package-scoped enum values unique.
+//
+// This lists only reasons a handler actually emits. Malformed-field failures
+// (username shape, email, currency) are rejected at the wire by protovalidate,
+// which attaches its own buf.validate.Violations detail, so they need no reason
+// here.
 type ErrorReason int32
 
 const (
 	ErrorReason_ERROR_REASON_UNSPECIFIED ErrorReason = 0
-	// ProfileService (FNS-93).
-	ErrorReason_ERROR_REASON_PROFILE_USERNAME_TAKEN       ErrorReason = 1
-	ErrorReason_ERROR_REASON_PROFILE_EMAIL_TAKEN          ErrorReason = 2
-	ErrorReason_ERROR_REASON_PROFILE_USERNAME_RESERVED    ErrorReason = 3
-	ErrorReason_ERROR_REASON_PROFILE_INVALID_USERNAME     ErrorReason = 4
-	ErrorReason_ERROR_REASON_PROFILE_INVALID_EMAIL        ErrorReason = 5
-	ErrorReason_ERROR_REASON_PROFILE_INVALID_DISPLAY_NAME ErrorReason = 6
-	ErrorReason_ERROR_REASON_PROFILE_INVALID_CURRENCY     ErrorReason = 7
-	ErrorReason_ERROR_REASON_PROFILE_INVALID_TIMEZONE     ErrorReason = 8
+	// ProfileService.
+	// The username is unavailable — already taken by another user or reserved by
+	// the platform. The two are deliberately indistinguishable to the caller.
+	ErrorReason_ERROR_REASON_PROFILE_USERNAME_TAKEN ErrorReason = 1
+	// The email is already linked to another user.
+	ErrorReason_ERROR_REASON_PROFILE_EMAIL_TAKEN ErrorReason = 2
+	// The timezone is not a valid IANA name (a check protovalidate cannot do).
+	ErrorReason_ERROR_REASON_PROFILE_INVALID_TIMEZONE ErrorReason = 3
 )
 
 // Enum value maps for ErrorReason.
@@ -52,23 +56,13 @@ var (
 		0: "ERROR_REASON_UNSPECIFIED",
 		1: "ERROR_REASON_PROFILE_USERNAME_TAKEN",
 		2: "ERROR_REASON_PROFILE_EMAIL_TAKEN",
-		3: "ERROR_REASON_PROFILE_USERNAME_RESERVED",
-		4: "ERROR_REASON_PROFILE_INVALID_USERNAME",
-		5: "ERROR_REASON_PROFILE_INVALID_EMAIL",
-		6: "ERROR_REASON_PROFILE_INVALID_DISPLAY_NAME",
-		7: "ERROR_REASON_PROFILE_INVALID_CURRENCY",
-		8: "ERROR_REASON_PROFILE_INVALID_TIMEZONE",
+		3: "ERROR_REASON_PROFILE_INVALID_TIMEZONE",
 	}
 	ErrorReason_value = map[string]int32{
-		"ERROR_REASON_UNSPECIFIED":                  0,
-		"ERROR_REASON_PROFILE_USERNAME_TAKEN":       1,
-		"ERROR_REASON_PROFILE_EMAIL_TAKEN":          2,
-		"ERROR_REASON_PROFILE_USERNAME_RESERVED":    3,
-		"ERROR_REASON_PROFILE_INVALID_USERNAME":     4,
-		"ERROR_REASON_PROFILE_INVALID_EMAIL":        5,
-		"ERROR_REASON_PROFILE_INVALID_DISPLAY_NAME": 6,
-		"ERROR_REASON_PROFILE_INVALID_CURRENCY":     7,
-		"ERROR_REASON_PROFILE_INVALID_TIMEZONE":     8,
+		"ERROR_REASON_UNSPECIFIED":              0,
+		"ERROR_REASON_PROFILE_USERNAME_TAKEN":   1,
+		"ERROR_REASON_PROFILE_EMAIL_TAKEN":      2,
+		"ERROR_REASON_PROFILE_INVALID_TIMEZONE": 3,
 	}
 )
 
@@ -166,17 +160,12 @@ const file_fairnsquare_errors_authx_v1alpha1_errors_proto_rawDesc = "" +
 	".fairnsquare/errors/authx/v1alpha1/errors.proto\x12!fairnsquare.errors.authx.v1alpha1\"k\n" +
 	"\vErrorDetail\x12F\n" +
 	"\x06reason\x18\x01 \x01(\x0e2..fairnsquare.errors.authx.v1alpha1.ErrorReasonR\x06reason\x12\x14\n" +
-	"\x05field\x18\x02 \x01(\tR\x05field*\xfe\x02\n" +
+	"\x05field\x18\x02 \x01(\tR\x05field*\xa5\x01\n" +
 	"\vErrorReason\x12\x1c\n" +
 	"\x18ERROR_REASON_UNSPECIFIED\x10\x00\x12'\n" +
 	"#ERROR_REASON_PROFILE_USERNAME_TAKEN\x10\x01\x12$\n" +
-	" ERROR_REASON_PROFILE_EMAIL_TAKEN\x10\x02\x12*\n" +
-	"&ERROR_REASON_PROFILE_USERNAME_RESERVED\x10\x03\x12)\n" +
-	"%ERROR_REASON_PROFILE_INVALID_USERNAME\x10\x04\x12&\n" +
-	"\"ERROR_REASON_PROFILE_INVALID_EMAIL\x10\x05\x12-\n" +
-	")ERROR_REASON_PROFILE_INVALID_DISPLAY_NAME\x10\x06\x12)\n" +
-	"%ERROR_REASON_PROFILE_INVALID_CURRENCY\x10\a\x12)\n" +
-	"%ERROR_REASON_PROFILE_INVALID_TIMEZONE\x10\bBZZXgithub.com/fair-n-square-co/apis/gen/pkg/fairnsquare/errors/authx/v1alpha1;authxerrorspbb\x06proto3"
+	" ERROR_REASON_PROFILE_EMAIL_TAKEN\x10\x02\x12)\n" +
+	"%ERROR_REASON_PROFILE_INVALID_TIMEZONE\x10\x03BZZXgithub.com/fair-n-square-co/apis/gen/pkg/fairnsquare/errors/authx/v1alpha1;authxerrorspbb\x06proto3"
 
 var (
 	file_fairnsquare_errors_authx_v1alpha1_errors_proto_rawDescOnce sync.Once

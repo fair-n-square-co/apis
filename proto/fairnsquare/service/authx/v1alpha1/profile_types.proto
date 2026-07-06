@@ -11,8 +11,8 @@ option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/servic
 // (ADR-4): the (issuer, subject) identity keys stay internal and are never
 // exposed here, while these attributes are what a user edits about themselves.
 //
-// `email` is carried here too: it is set at JIT provisioning (FNS-92) from the
-// login, and profile updates own it going forward.
+// `email` is carried here too: it is set at JIT provisioning from the login, and
+// profile updates own it going forward.
 message Profile {
   // Stable internal id (UUID) of the canonical user. The key other services
   // reference; not editable.

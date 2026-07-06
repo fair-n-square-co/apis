@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file fairnsquare/errors/authx/v1alpha1/errors.proto.
  */
 export const file_fairnsquare_errors_authx_v1alpha1_errors: GenFile = /*@__PURE__*/
-  fileDesc("Ci5mYWlybnNxdWFyZS9lcnJvcnMvYXV0aHgvdjFhbHBoYTEvZXJyb3JzLnByb3RvEiFmYWlybnNxdWFyZS5lcnJvcnMuYXV0aHgudjFhbHBoYTEiXAoLRXJyb3JEZXRhaWwSPgoGcmVhc29uGAEgASgOMi4uZmFpcm5zcXVhcmUuZXJyb3JzLmF1dGh4LnYxYWxwaGExLkVycm9yUmVhc29uEg0KBWZpZWxkGAIgASgJKv4CCgtFcnJvclJlYXNvbhIcChhFUlJPUl9SRUFTT05fVU5TUEVDSUZJRUQQABInCiNFUlJPUl9SRUFTT05fUFJPRklMRV9VU0VSTkFNRV9UQUtFThABEiQKIEVSUk9SX1JFQVNPTl9QUk9GSUxFX0VNQUlMX1RBS0VOEAISKgomRVJST1JfUkVBU09OX1BST0ZJTEVfVVNFUk5BTUVfUkVTRVJWRUQQAxIpCiVFUlJPUl9SRUFTT05fUFJPRklMRV9JTlZBTElEX1VTRVJOQU1FEAQSJgoiRVJST1JfUkVBU09OX1BST0ZJTEVfSU5WQUxJRF9FTUFJTBAFEi0KKUVSUk9SX1JFQVNPTl9QUk9GSUxFX0lOVkFMSURfRElTUExBWV9OQU1FEAYSKQolRVJST1JfUkVBU09OX1BST0ZJTEVfSU5WQUxJRF9DVVJSRU5DWRAHEikKJUVSUk9SX1JFQVNPTl9QUk9GSUxFX0lOVkFMSURfVElNRVpPTkUQCEJaWlhnaXRodWIuY29tL2ZhaXItbi1zcXVhcmUtY28vYXBpcy9nZW4vcGtnL2ZhaXJuc3F1YXJlL2Vycm9ycy9hdXRoeC92MWFscGhhMTthdXRoeGVycm9yc3BiYgZwcm90bzM");
+  fileDesc("Ci5mYWlybnNxdWFyZS9lcnJvcnMvYXV0aHgvdjFhbHBoYTEvZXJyb3JzLnByb3RvEiFmYWlybnNxdWFyZS5lcnJvcnMuYXV0aHgudjFhbHBoYTEiXAoLRXJyb3JEZXRhaWwSPgoGcmVhc29uGAEgASgOMi4uZmFpcm5zcXVhcmUuZXJyb3JzLmF1dGh4LnYxYWxwaGExLkVycm9yUmVhc29uEg0KBWZpZWxkGAIgASgJKqUBCgtFcnJvclJlYXNvbhIcChhFUlJPUl9SRUFTT05fVU5TUEVDSUZJRUQQABInCiNFUlJPUl9SRUFTT05fUFJPRklMRV9VU0VSTkFNRV9UQUtFThABEiQKIEVSUk9SX1JFQVNPTl9QUk9GSUxFX0VNQUlMX1RBS0VOEAISKQolRVJST1JfUkVBU09OX1BST0ZJTEVfSU5WQUxJRF9USU1FWk9ORRADQlpaWGdpdGh1Yi5jb20vZmFpci1uLXNxdWFyZS1jby9hcGlzL2dlbi9wa2cvZmFpcm5zcXVhcmUvZXJyb3JzL2F1dGh4L3YxYWxwaGExO2F1dGh4ZXJyb3JzcGJiBnByb3RvMw");
 
 /**
  * ErrorDetail is attached to a failed authx RPC as a connect error detail,
@@ -52,10 +52,15 @@ export const ErrorDetailSchema: GenMessage<ErrorDetail> = /*@__PURE__*/
  * parsing human-facing messages.
  *
  * Values are namespaced by RPC group (PROFILE_, and future IDENTITY_, …) so one
- * per-service enum covers every RPC without collisions. Reasons are append-only:
- * never renumber or reuse a value. buf lint STANDARD requires the ERROR_REASON_
- * prefix and the _UNSPECIFIED zero value; the prefix also keeps the
+ * per-service enum covers every RPC without collisions. Reasons are append-only
+ * once released: never renumber or reuse a value. buf lint STANDARD requires the
+ * ERROR_REASON_ prefix and the _UNSPECIFIED zero value; the prefix also keeps the
  * package-scoped enum values unique.
+ *
+ * This lists only reasons a handler actually emits. Malformed-field failures
+ * (username shape, email, currency) are rejected at the wire by protovalidate,
+ * which attaches its own buf.validate.Violations detail, so they need no reason
+ * here.
  *
  * @generated from enum fairnsquare.errors.authx.v1alpha1.ErrorReason
  */
@@ -66,46 +71,27 @@ export enum ErrorReason {
   UNSPECIFIED = 0,
 
   /**
-   * ProfileService (FNS-93).
+   * ProfileService.
+   * The username is unavailable — already taken by another user or reserved by
+   * the platform. The two are deliberately indistinguishable to the caller.
    *
    * @generated from enum value: ERROR_REASON_PROFILE_USERNAME_TAKEN = 1;
    */
   PROFILE_USERNAME_TAKEN = 1,
 
   /**
+   * The email is already linked to another user.
+   *
    * @generated from enum value: ERROR_REASON_PROFILE_EMAIL_TAKEN = 2;
    */
   PROFILE_EMAIL_TAKEN = 2,
 
   /**
-   * @generated from enum value: ERROR_REASON_PROFILE_USERNAME_RESERVED = 3;
+   * The timezone is not a valid IANA name (a check protovalidate cannot do).
+   *
+   * @generated from enum value: ERROR_REASON_PROFILE_INVALID_TIMEZONE = 3;
    */
-  PROFILE_USERNAME_RESERVED = 3,
-
-  /**
-   * @generated from enum value: ERROR_REASON_PROFILE_INVALID_USERNAME = 4;
-   */
-  PROFILE_INVALID_USERNAME = 4,
-
-  /**
-   * @generated from enum value: ERROR_REASON_PROFILE_INVALID_EMAIL = 5;
-   */
-  PROFILE_INVALID_EMAIL = 5,
-
-  /**
-   * @generated from enum value: ERROR_REASON_PROFILE_INVALID_DISPLAY_NAME = 6;
-   */
-  PROFILE_INVALID_DISPLAY_NAME = 6,
-
-  /**
-   * @generated from enum value: ERROR_REASON_PROFILE_INVALID_CURRENCY = 7;
-   */
-  PROFILE_INVALID_CURRENCY = 7,
-
-  /**
-   * @generated from enum value: ERROR_REASON_PROFILE_INVALID_TIMEZONE = 8;
-   */
-  PROFILE_INVALID_TIMEZONE = 8,
+  PROFILE_INVALID_TIMEZONE = 3,
 }
 
 /**
