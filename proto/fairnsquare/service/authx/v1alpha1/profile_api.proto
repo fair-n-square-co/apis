@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package fairnsquare.service.authx.v1alpha1;
+
+import "buf/validate/validate.proto";
+import "fairnsquare/service/authx/v1alpha1/profile_types.proto";
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/authx/v1alpha1;authxpb";
+
+// ProfileService is the user-facing CRUD surface over the canonical user record
+// (ADR-4). It reads and updates the mutable profile attributes (username,
+// display name, email, preferences); the identity link (issuer/subject) is owned
+// by IdentityService and never edited here.
+//
+// Zero trust (ADR-4 "Zero trust between services"): the caller's identity comes
+// from its WorkOS access token in the `Authorization` request metadata
+// (`Bearer <token>`), never from request fields. Every RPC here operates on the
+// caller's OWN profile — the token identifies which user; the body carries only
+// the attributes being read or written. A caller cannot address another user's
+// profile.
+//
+// Note: the token signature is not yet verified (it is only decoded); until
+// signature verification lands the service must be reachable only by trusted
+// callers.
+service ProfileService {
+  // GetProfile returns the caller's own profile, identified by the access token
+  // in the `Authorization` metadata. Returns NotFound if the user has not been
+  // provisioned yet (no prior ResolveUser). Takes no body fields — identity is
+  // the token.
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {}
+
+  // UpdateProfile replaces the caller's mutable profile attributes with the
+  // supplied values (full-replace / PUT semantics: send the complete desired
+  // state, typically read first via GetProfile). The identity comes from the
+  // token, not the body. Validation failures return InvalidArgument; a username
+  // or email already taken by another user returns AlreadyExists; an
+  // unprovisioned caller returns NotFound.
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {}
+}
+
+// GetProfileRequest is intentionally empty: the profile to read is the caller's
+// own, identified by the access token in the `Authorization` metadata.
+message GetProfileRequest {}
+
+message GetProfileResponse {
+  Profile profile = 1;
+}
+
+// UpdateProfileRequest carries the full desired state of the caller's mutable
+// profile attributes (full-replace). It deliberately omits user_id — the target
+// is the caller's own record, resolved from the token, not an asserted field.
+message UpdateProfileRequest {
+  // Required. 3-30 chars, letters/digits/underscore. Normalized (lower-cased)
+  // and checked for uniqueness server-side.
+  string username = 1 [(buf.validate.field).string = {
+    min_len: 3
+    max_len: 30
+    pattern: "^[A-Za-z0-9_]+$"
+  }];
+  // Optional human-facing name. Empty clears it. Length-gated only.
+  string display_name = 2 [(buf.validate.field).string.max_len = 100];
+  // Required. Must be a syntactically valid email; owned by profile updates
+  // after JIT, and checked for uniqueness server-side.
+  string email = 3 [(buf.validate.field).string.email = true];
+  // Required. Send the full preferences block (full-replace); its fields are
+  // validated by the constraints on the Preferences message.
+  Preferences preferences = 4 [(buf.validate.field).required = true];
+}
+
+message UpdateProfileResponse {
+  // The profile as persisted after the update (normalized values).
+  Profile profile = 1;
+}

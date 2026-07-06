@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package fairnsquare.errors.authx.v1alpha1;
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/errors/authx/v1alpha1;authxerrorspb";
+
+// ErrorReason is the stable, machine-readable cause of a failed authx RPC. The
+// connect status CODE stays the coarse signal (AlreadyExists, InvalidArgument,
+// NotFound); this enum is the fine-grained reason a client branches on without
+// parsing human-facing messages.
+//
+// Values are namespaced by RPC group (PROFILE_, and future IDENTITY_, …) so one
+// per-service enum covers every RPC without collisions. Reasons are append-only
+// once released: never renumber or reuse a value. buf lint STANDARD requires the
+// ERROR_REASON_ prefix and the _UNSPECIFIED zero value; the prefix also keeps the
+// package-scoped enum values unique.
+//
+// This lists only reasons a handler actually emits. Malformed-field failures
+// (username shape, email, currency) are rejected at the wire by protovalidate,
+// which attaches its own buf.validate.Violations detail, so they need no reason
+// here.
+enum ErrorReason {
+  ERROR_REASON_UNSPECIFIED = 0;
+
+  // ProfileService.
+  // The username is unavailable — already taken by another user or reserved by
+  // the platform. The two are deliberately indistinguishable to the caller.
+  ERROR_REASON_PROFILE_USERNAME_TAKEN = 1;
+  // The email is already linked to another user.
+  ERROR_REASON_PROFILE_EMAIL_TAKEN = 2;
+  // The timezone is not a valid IANA name (a check protovalidate cannot do).
+  ERROR_REASON_PROFILE_INVALID_TIMEZONE = 3;
+}
+
+// ErrorDetail is attached to a failed authx RPC as a connect error detail: the
+// machine-readable reason, the offending request field (for form UIs), and a
+// human-readable message. Read it client-side alongside the status code; for
+// wire-level validation failures the protovalidate interceptor additionally
+// attaches its own buf.validate.Violations detail.
+message ErrorDetail {
+  // The machine-readable reason for the failure — branch on this, not the message.
+  ErrorReason reason = 1;
+  // The request field the error concerns (e.g. "username"), or empty when the
+  // error is not tied to a single field.
+  string field = 2;
+  // A human-readable, client-safe description of the failure, or empty when the
+  // reason alone is sufficient.
+  string message = 3;
+}
