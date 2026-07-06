@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package fairnsquare.errors.authx.v1alpha1;
+
+option go_package = "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/errors/authx/v1alpha1;authxerrorspb";
+
+// ErrorReason is the stable, machine-readable cause of a failed authx RPC. The
+// connect status CODE stays the coarse signal (AlreadyExists, InvalidArgument,
+// NotFound); this enum is the fine-grained reason a client branches on without
+// parsing human-facing messages.
+//
+// Values are namespaced by RPC group (PROFILE_, and future IDENTITY_, …) so one
+// per-service enum covers every RPC without collisions. Reasons are append-only:
+// never renumber or reuse a value. buf lint STANDARD requires the ERROR_REASON_
+// prefix and the _UNSPECIFIED zero value; the prefix also keeps the
+// package-scoped enum values unique.
+enum ErrorReason {
+  ERROR_REASON_UNSPECIFIED = 0;
+
+  // ProfileService (FNS-93).
+  ERROR_REASON_PROFILE_USERNAME_TAKEN = 1;
+  ERROR_REASON_PROFILE_EMAIL_TAKEN = 2;
+  ERROR_REASON_PROFILE_USERNAME_RESERVED = 3;
+  ERROR_REASON_PROFILE_INVALID_USERNAME = 4;
+  ERROR_REASON_PROFILE_INVALID_EMAIL = 5;
+  ERROR_REASON_PROFILE_INVALID_DISPLAY_NAME = 6;
+  ERROR_REASON_PROFILE_INVALID_CURRENCY = 7;
+  ERROR_REASON_PROFILE_INVALID_TIMEZONE = 8;
+}
+
+// ErrorDetail is attached to a failed authx RPC as a connect error detail,
+// pairing the machine-readable reason with the offending request field (for form
+// UIs). Read it client-side alongside the status code; for wire-level validation
+// failures the protovalidate interceptor additionally attaches its own
+// buf.validate.Violations detail.
+message ErrorDetail {
+  // The machine-readable reason for the failure.
+  ErrorReason reason = 1;
+  // The request field the error concerns (e.g. "username"), or empty when the
+  // error is not tied to a single field.
+  string field = 2;
+}
