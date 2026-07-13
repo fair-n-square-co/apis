@@ -1,0 +1,19 @@
+{
+  // Emit config for the published package. NodeNext (rather than the bundler
+  // resolution used for local typechecking) is deliberate: it holds the emitted
+  // dist/ to real Node ESM rules, so a non-bundler consumer can resolve it.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": false,
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

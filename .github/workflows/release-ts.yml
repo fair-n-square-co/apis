@@ -1,0 +1,81 @@
+name: Release gen/ts
+
+# Publishes the generated TypeScript client to GitHub Packages.
+#
+# Versioning is deliberately decoupled from the Go bindings: this fires on
+# `gen/ts/v*` tags, while release-pkg.yml owns `gen/pkg/v*`. Cut a release with:
+#
+#   git tag gen/ts/v0.1.0 && git push origin gen/ts/v0.1.0
+#
+# The tag is the single source of truth for the published version; package.json
+# is stamped from it at publish time so the two cannot drift.
+
+on:
+  push:
+    tags:
+      - 'gen/ts/v*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  publish:
+    name: Publish to GitHub Packages
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gen/ts
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+
+      # Writes an .npmrc scoped to GitHub Packages and wires up NODE_AUTH_TOKEN.
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@fair-n-square-co'
+
+      - name: Derive version from tag
+        id: version
+        run: |
+          # refs/tags/gen/ts/v1.2.3 -> 1.2.3
+          VERSION="${GITHUB_REF_NAME#gen/ts/v}"
+          if ! echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+            echo "::error::Tag '$GITHUB_REF_NAME' does not encode a semver version (expected gen/ts/vX.Y.Z)"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Publishing version $VERSION"
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        run: bun run typecheck
+
+      - name: Build
+        run: bun run build
+
+      - name: Stamp version from tag
+        run: npm version "${{ steps.version.outputs.version }}" --no-git-tag-version --allow-same-version
+
+      - name: Publish
+        # npm (not bun) publish: it honours the .npmrc that setup-node wrote.
+        # --ignore-scripts stops prepack from rebuilding what we just built.
+        run: npm publish --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "gen/ts v${{ steps.version.outputs.version }}" \
+            --notes "TypeScript client \`@fair-n-square-co/apis@${{ steps.version.outputs.version }}\` published to GitHub Packages."
