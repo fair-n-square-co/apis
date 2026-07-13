@@ -12,10 +12,10 @@ build:
 .PHONY: gen
 gen: build lint
 	buf generate
-	cd gen/ts && bun install && bun run typecheck
+	cd gen/ts && bun install && bun run typecheck && bun run build
 
 .PHONY: gen/ts
 gen/ts: build lint
 	buf generate
-	cd gen/ts && bun install && bun run typecheck
+	cd gen/ts && bun install && bun run typecheck && bun run build
 

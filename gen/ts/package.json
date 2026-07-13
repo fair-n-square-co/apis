@@ -1,18 +1,33 @@
 {
-  "name": "@fairnsquare/apis",
-  "module": "index.ts",
+  "name": "@fair-n-square-co/apis",
+  "version": "0.1.0",
+  "description": "Generated protobuf-es message and service descriptors for the fairnsquare APIs.",
+  "license": "MPL-2.0",
   "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest",
-    "eslint": "^9.37.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fair-n-square-co/apis.git",
+    "directory": "gen/ts"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
   "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src --ext .ts"
-  },
-  "peerDependencies": {
-    "typescript": "^5.9.3"
+    "lint": "eslint src --ext .ts",
+    "prepack": "bun run build"
   },
   "keywords": [
     "protobuf",
@@ -22,5 +37,10 @@
   ],
   "dependencies": {
     "@bufbuild/protobuf": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "eslint": "^9.37.0",
+    "typescript": "^5.9.3"
   }
 }

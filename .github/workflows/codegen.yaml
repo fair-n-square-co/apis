@@ -26,6 +26,13 @@ jobs:
           bun install --frozen-lockfile
           bun run typecheck
 
+      # Build here too, so a dist/ that fails to compile is caught on the PR
+      # rather than at release time. dist/ is gitignored, so this does not
+      # affect the freshness check below.
+      - name: TypeScript build
+        working-directory: gen/ts
+        run: bun run build
+
       - name: Verify no changes
         run: |
           if ! git diff --exit-code; then

@@ -14,11 +14,13 @@ plugins:
     opt:
       - paths=source_relative
   # TypeScript - Protobuf ES
+  # import_extension=js keeps relative imports explicit (./foo_pb.js) so the
+  # compiled dist/ is resolvable under plain Node ESM, not just bundlers.
   - remote: buf.build/bufbuild/es:v2.9.0
     out: gen/ts/src
     opt:
       - target=ts
-      - import_extension=none
+      - import_extension=js
     include_imports: true
     include_wkt: true
 inputs:
