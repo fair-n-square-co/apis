@@ -35,7 +35,9 @@ type Profile struct {
 	// reference; not editable.
 	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	// Unique, lower-cased discovery handle used to find a user on the platform
-	// (e.g. when adding a friend). Unique across all users.
+	// (e.g. when adding a friend). Unique across all users. May be empty until the
+	// user chooses one (JIT-provisioned users start without a username), so
+	// consumers must not assume it is populated.
 	Username string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	// Human-facing display name. A single free-form field (not split into
 	// first/last). May be empty until the user sets it.
