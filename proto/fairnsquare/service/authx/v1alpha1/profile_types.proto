@@ -18,7 +18,9 @@ message Profile {
   // reference; not editable.
   string user_id = 1;
   // Unique, lower-cased discovery handle used to find a user on the platform
-  // (e.g. when adding a friend). Unique across all users.
+  // (e.g. when adding a friend). Unique across all users. May be empty until the
+  // user chooses one (JIT-provisioned users start without a username), so
+  // consumers must not assume it is populated.
   string username = 2;
   // Human-facing display name. A single free-form field (not split into
   // first/last). May be empty until the user sets it.

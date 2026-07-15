@@ -109,8 +109,11 @@ func (x *GetProfileResponse) GetProfile() *Profile {
 // is the caller's own record, resolved from the token, not an asserted field.
 type UpdateProfileRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Required. 3-30 chars, letters/digits/underscore. Normalized (lower-cased)
-	// and checked for uniqueness server-side.
+	// Optional. Empty means "not chosen yet"; a user may set it during onboarding
+	// or later from the profile screen, and it is never required. When present it
+	// must be a 3-30 char handle of letters/digits/underscore, normalized
+	// (lower-cased) and unique server-side — the empty value is exempt from the
+	// uniqueness check (many users may be unset at once).
 	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	// Optional human-facing name. Empty clears it. Length-gated only.
 	DisplayName string `protobuf:"bytes,2,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
@@ -234,9 +237,9 @@ const file_fairnsquare_service_authx_v1alpha1_profile_api_proto_rawDesc = "" +
 	"4fairnsquare/service/authx/v1alpha1/profile_api.proto\x12\"fairnsquare.service.authx.v1alpha1\x1a\x1bbuf/validate/validate.proto\x1a6fairnsquare/service/authx/v1alpha1/profile_types.proto\"\x13\n" +
 	"\x11GetProfileRequest\"[\n" +
 	"\x12GetProfileResponse\x12E\n" +
-	"\aprofile\x18\x01 \x01(\v2+.fairnsquare.service.authx.v1alpha1.ProfileR\aprofile\"\xf4\x01\n" +
-	"\x14UpdateProfileRequest\x126\n" +
-	"\busername\x18\x01 \x01(\tB\x1a\xbaH\x17r\x15\x10\x03\x18\x1e2\x0f^[A-Za-z0-9_]+$R\busername\x12*\n" +
+	"\aprofile\x18\x01 \x01(\v2+.fairnsquare.service.authx.v1alpha1.ProfileR\aprofile\"\xf8\x01\n" +
+	"\x14UpdateProfileRequest\x12:\n" +
+	"\busername\x18\x01 \x01(\tB\x1e\xbaH\x1br\x192\x17^([A-Za-z0-9_]{3,30})?$R\busername\x12*\n" +
 	"\fdisplay_name\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x18dR\vdisplayName\x12\x1d\n" +
 	"\x05email\x18\x03 \x01(\tB\a\xbaH\x04r\x02`\x01R\x05email\x12Y\n" +
 	"\vpreferences\x18\x04 \x01(\v2/.fairnsquare.service.authx.v1alpha1.PreferencesB\x06\xbaH\x03\xc8\x01\x01R\vpreferences\"^\n" +

@@ -35,7 +35,9 @@ export type Profile = Message<"fairnsquare.service.authx.v1alpha1.Profile"> & {
 
   /**
    * Unique, lower-cased discovery handle used to find a user on the platform
-   * (e.g. when adding a friend). Unique across all users.
+   * (e.g. when adding a friend). Unique across all users. May be empty until the
+   * user chooses one (JIT-provisioned users start without a username), so
+   * consumers must not assume it is populated.
    *
    * @generated from field: string username = 2;
    */
