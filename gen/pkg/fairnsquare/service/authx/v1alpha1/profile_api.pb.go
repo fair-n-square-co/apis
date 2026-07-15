@@ -109,13 +109,11 @@ func (x *GetProfileResponse) GetProfile() *Profile {
 // is the caller's own record, resolved from the token, not an asserted field.
 type UpdateProfileRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Optional for now. Empty means "not chosen yet"; when present it must be a
-	// 3-30 char handle of letters/digits/underscore. Normalized (lower-cased) and
-	// checked for uniqueness server-side — the empty value is exempt from that
+	// Optional. Empty means "not chosen yet"; a user may set it during onboarding
+	// or later from the profile screen, and it is never required. When present it
+	// must be a 3-30 char handle of letters/digits/underscore, normalized
+	// (lower-cased) and unique server-side — the empty value is exempt from the
 	// uniqueness check (many users may be unset at once).
-	// TODO(FNS-XXX): username is collected in the profile screen only as a temporary
-	// home; move selection into the onboarding/sign-up flow and reconsider making it
-	// required there.
 	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	// Optional human-facing name. Empty clears it. Length-gated only.
 	DisplayName string `protobuf:"bytes,2,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
