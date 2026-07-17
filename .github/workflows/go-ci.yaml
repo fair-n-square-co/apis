@@ -1,0 +1,51 @@
+name: Go
+
+# Guards the gen/pkg Go module. The Codegen workflow only proves the generated
+# code matches a fresh `buf generate`; it says nothing about whether go.mod
+# declares what that code imports. A module can be byte-perfect and still not
+# compile for consumers — which is how gen/pkg/v0.3.0 shipped importing
+# protovalidate without requiring it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  module:
+    name: gen/pkg builds and go.mod is tidy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gen/pkg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
+        with:
+          go-version-file: gen/pkg/go.mod
+          cache-dependency-path: gen/pkg/go.sum
+
+      # The default -mod=readonly is the point: it resolves imports strictly
+      # against go.mod instead of quietly amending it, which is how a consumer
+      # sees the module.
+      - name: Build
+        run: go build ./...
+
+      - name: Vet
+        run: go vet ./...
+
+      # Checks the go.sum hashes against the downloaded module contents.
+      - name: Verify dependencies
+        run: go mod verify
+
+      - name: Check go.mod is tidy
+        run: |
+          go mod tidy
+          if ! git diff --exit-code -- go.mod go.sum; then
+            echo "::error::go.mod/go.sum are not tidy. Run 'go mod tidy' in gen/pkg and commit the result."
+            exit 1
+          fi
